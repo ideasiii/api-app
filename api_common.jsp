@@ -48,9 +48,9 @@
 	
 
 	/** APP ID CHECK **/
-	public int checkAppIdExistance(Connection conn, final String strAppId) {
+	public int checkAppIdExistance(final String strAppId) {
 	
-	int status = select(conn, "SELECT NULL FROM app WHERE app_id=?", new Object[]{strAppId}, new ResultSetReader() {
+	int status = select(null, "SELECT NULL FROM app WHERE app_id=?", new Object[]{strAppId}, new ResultSetReader() {
 		
 		 public int read(ResultSet rs) throws Exception {
 	            int itemCount = 0;
@@ -68,7 +68,7 @@
 		
 		JSONObject jobj = null;
 		
-		int nCount = checkAppIdExistance(null, strAppId);
+		int nCount = checkAppIdExistance(strAppId);
 		if (nCount < 1) {
 			switch (nCount) {
 			case 0:

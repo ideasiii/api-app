@@ -30,12 +30,13 @@
 			return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid date.");
 		}
 
+		int nCheckAppIdExit = checkAppIdExistance(strAppId);
 		
-		
-		
-		
-		
-		
+		if (0 > nCheckAppIdExit)
+		{
+			return ApiResponse.appIdNotFound();
+		}
+			
 		TotalAmountData amountData = new TotalAmountData();
 		JSONObject jobj;
 		int nCount = queryTotalUserAmount(strAppId, strDate, amountData);
@@ -65,7 +66,7 @@
 	public int queryTotalUserAmount(final String strAppId, final String strDate, final TotalAmountData amountData) {
 
 		int status = select(null, "SELECT `count` FROM `app_user_total_amount` WHERE `app_id`=? AND `date`=?",
-				new Object[] { strAppId, strDate }, new ResultSetReader() {
+				new Object[] {strAppId, strDate}, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
 
