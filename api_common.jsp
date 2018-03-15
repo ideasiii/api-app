@@ -28,16 +28,13 @@
 	
 		//private static final String DB_IP = "52.68.108.37";
 		//private static final String DB_IP = "10.0.20.130";
-		//private static final String DB_IP = "127.0.0.1";
-		private static final String DB_IP = "124.9.6.64";
+		private static final String DB_IP = "127.0.0.1";
 		
 		
 		public static final String DB_URL_MORE = "jdbc:mysql://" + DB_IP + ":3306/more?useUnicode=true&characterEncoding=UTF-8&useSSL=false&verifyServerCertificate=false";
-	//	public static final String DB_USER = "more";
-	//	public static final String DB_PASS = "ideas123!";
+		public static final String DB_USER = "more";
+		public static final String DB_PASS = "ideas123!";
 		
-		public static final String DB_USER = "checkme";
-		public static final String DB_PASS = "blogserv2010!";
 	}
 	
 	public static class AppData {

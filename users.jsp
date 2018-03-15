@@ -30,6 +30,12 @@
 			return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid date.");
 		}
 
+		
+		
+		
+		
+		
+		
 		TotalAmountData amountData = new TotalAmountData();
 		JSONObject jobj;
 		int nCount = queryTotalUserAmount(strAppId, strDate, amountData);
