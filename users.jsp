@@ -37,7 +37,7 @@
 		if (0 > nCount) {
 			jobj = ApiResponse.successTemplate();
 			jobj.put("count", amountData.count);
-			System.out.print(amountData.count);
+			System.out.print("count: " + amountData.count);
 		} else {
 			switch (nCount) {
 			case 0:
