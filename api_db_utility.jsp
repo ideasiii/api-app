@@ -33,7 +33,7 @@ public int select(Connection conn, final String template,
         final Object[] params, final ResultSetReader reader) {
     PreparedStatement pst = null;
     boolean closeConnOnReturn = false;
-	int nStatus = 0;
+	int status = 0; 
 	
     try {
         if (conn == null) {
@@ -56,18 +56,18 @@ public int select(Connection conn, final String template,
             }
         }
         ResultSet rs = pst.executeQuery();
-        nStatus = reader.read(rs);
+        status = reader.read(rs);
 		
         rs.close();
         pst.close();
     } catch (Exception e) {
         e.printStackTrace();
-        nStatus = ERR_EXCEPTION;
+        status = ERR_EXCEPTION;
     } finally {
         if (closeConnOnReturn) {
             closeConn(conn);
         }
-        return nStatus;
+        return status;
     }
 }
 
