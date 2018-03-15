@@ -1,6 +1,5 @@
 <%!
 
-
 /** select() read ResultSet callback */
 public interface ResultSetReader {
     int read(ResultSet rs) throws Exception;
@@ -34,7 +33,7 @@ public int select(Connection conn, final String template,
         final Object[] params, final ResultSetReader reader) {
     PreparedStatement pst = null;
     boolean closeConnOnReturn = false;
-	int nStatus;
+	int nStatus = 0;
 	
     try {
         if (conn == null) {
@@ -71,22 +70,5 @@ public int select(Connection conn, final String template,
         return nStatus;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 %>

@@ -8,12 +8,13 @@
 <%@ page import="more.Logs"%>
 <%@ page import="more.StringUtility"%>
 <%@ page import="org.json.JSONObject"%>
-<%@ page import="java.text.ParseException;"%>
-<%@ page import="java.text.SimpleDateFormat;"%>
-<%@ page import="java.util.Date;"%>
+<%@ page import="java.util.regex.Matcher"%>
+<%@ page import="java.util.regex.Pattern"%>
+<%@ page import="java.text.ParseException"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.Date"%>
 
-<%@ include file="../api_db_utility.jsp"%>
-
+<%@ include file="api_db_utility.jsp"%>  
 
 <%!
 	public final static int ERR_SUCCESS = 1;
@@ -66,7 +67,7 @@
 	}
 	
 	
-	public JSONObject tryIfAppIdNotExsit(Connect conn, final String strAppId) {
+	public JSONObject tryIfAppIdNotExsit(Connection conn, final String strAppId) {
 		
 		JSONObject jobj = null;
 		
