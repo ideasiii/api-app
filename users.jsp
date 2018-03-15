@@ -38,6 +38,7 @@
 			jobj = ApiResponse.successTemplate();
 			jobj.put("count", amountData.count);
 			System.out.print("count: " + amountData.count);
+			System.out.print("update_date: " + amountData.update_date);
 		} else {
 			switch (nCount) {
 			case 0:
