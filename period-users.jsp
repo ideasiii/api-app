@@ -74,18 +74,18 @@
 
 	public int queryPeriodUserAmount(final String strAppId, final String strStartDate, final String strEndDate, final PeriodAmountData amountData) {
 
-		int status = select(null, "SELECT `count` FROM `more`.`app_user_period_amount` WHERE `app_id`=? AND `start_date`=? AND `end_date`=?",
+		int status = select(null, "SELECT * FROM `more`.`app_user_period_amount` WHERE `app_id`=? AND `start_date`=? AND `end_date`=?",
 				new Object[] {strAppId, strStartDate, strEndDate}, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
 
 						while (rs.next()) {
 							++itemCount;
-					//		amountData.app_id = rs.getString("app_id");
-					//		amountData.start_date = rs.getString("start_date");
-					//		amountData.end_date = rs.getString("end_date");
+							amountData.app_id = rs.getString("app_id");
+							amountData.start_date = rs.getString("start_date");
+							amountData.end_date = rs.getString("end_date");
 							amountData.count = rs.getInt("count");
-					//		amountData.update_date = rs.getString("update_date");
+							amountData.update_date = rs.getString("update_date");
 						}
 						return itemCount;
 					}
