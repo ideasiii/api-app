@@ -5,16 +5,15 @@
 <%@ page import="java.util.Map"%>
 
 <%@include file="api_common.jsp"%>
-<%@include file="response_utility.jsp"%>  
+<%@include file="response_utility.jsp"%>
 
-<% 
+<%
 	request.setCharacterEncoding("UTF-8");
 	JSONObject jobj = processRequest(request);
 	out.print(jobj.toString());
 %>
 
-<%!
-		private JSONObject processRequest(HttpServletRequest request) {
+<%!private JSONObject processRequest(HttpServletRequest request) {
 		if (!hasRequiredParameters(request)) {
 			return ApiResponse.error(ApiResponse.STATUS_MISSING_PARAMETER);
 		}
@@ -30,22 +29,23 @@
 		if (!isValidDate(strStartDate, "yyyy-MM-dd")) {
 			return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid start_date.");
 		}
-		
+
 		if (!isValidDate(strEndDate, "yyyy-MM-dd")) {
 			return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid end_date.");
 		}
-		
-		if (!isValidStartDate(strStartDate, strEndDate, "yyyy-MM-dd")) {
-			return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid end_date.");
+
+		if (!strStartDate.equals(strEndDate)) {
+			if (!isValidStartDate(strStartDate, strEndDate, "yyyy-MM-dd")) {
+				return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid end_date.");
+			}
 		}
-		
+
 		int nCheckAppIdExit = checkAppIdExistance(strAppId);
-		
-		if (0 > nCheckAppIdExit)
-		{
+
+		if (0 > nCheckAppIdExit) {
 			return ApiResponse.appIdNotFound();
 		}
-			
+
 		PeriodAmountData amountData = new PeriodAmountData();
 		JSONObject jobj;
 		int nCount = queryPeriodUserAmount(strAppId, strStartDate, strEndDate, amountData);
@@ -65,16 +65,17 @@
 		return jobj;
 	}
 
-
 	public boolean hasRequiredParameters(final HttpServletRequest request) {
 		Map paramMap = request.getParameterMap();
 		return paramMap.containsKey("app_id") && paramMap.containsKey("start_date") && paramMap.containsKey("end_date");
 	}
 
-	public int queryPeriodUserAmount(final String strAppId, final String strStartDate, final String strEndDate, final PeriodAmountData amountData) {
+	public int queryPeriodUserAmount(final String strAppId, final String strStartDate, final String strEndDate,
+			final PeriodAmountData amountData) {
 
-		int status = select(null, "SELECT * FROM `app_user_period_amount` WHERE `app_id`=? AND `start_date`=? AND `end_date`=?",
-				new Object[] {strAppId, strStartDate, strEndDate}, new ResultSetReader() {
+		int status = select(null,
+				"SELECT * FROM `app_user_period_amount` WHERE `app_id`=? AND `start_date`=? AND `end_date`=?",
+				new Object[] { strAppId, strStartDate, strEndDate }, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
 
@@ -98,7 +99,4 @@
 		public String end_date;
 		public int count;
 		public String update_date;
-	}
-	
-	
-	%>
+	}%>
