@@ -1,4 +1,5 @@
 
+<%@ page import="org.json.JSONObject"%>
 <%!//response type to client on request failure
 
 	public static class ApiResponse {
