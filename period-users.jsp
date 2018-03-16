@@ -48,7 +48,7 @@
 		System.out.print("app_id: " + strAppId + " start_date: " + strStartDate + " end_date: " +strEndDate);
 		int nCount = queryPeriodUserAmount(strAppId, strStartDate, strEndDate, amountData);
 
-		if (0 > nCount) {
+		if (0 < nCount) {
 			jobj = ApiResponse.successTemplate();
 			jobj.put("count", amountData.count);
 			System.out.print("count: " + amountData.count + "update_date: " + amountData.update_date);
@@ -61,6 +61,7 @@
 				break;
 			default:
 				jobj = ApiResponse.byReturnStatus(nCount);
+				System.out.print("****period-users******nCount:" + nCount);
 			}
 		}
 		return jobj;
