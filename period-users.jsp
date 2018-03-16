@@ -44,6 +44,8 @@
 			
 		PeriodAmountData amountData = new PeriodAmountData();
 		JSONObject jobj;
+		/****/
+		System.out.print("app_id: " + strAppId + " start_date: " + strStartDate + " end_date: " +strEndDate);
 		int nCount = queryPeriodUserAmount(strAppId, strStartDate, strEndDate, amountData);
 
 		if (0 > nCount) {
@@ -72,7 +74,7 @@
 
 	public int queryPeriodUserAmount(final String strAppId, final String strStartDate, final String strEndDate, final PeriodAmountData amountData) {
 
-		int status = select(null, "SELECT count FROM more.app_user_period_amount WHERE app_id=? AND start_date=? AND end_date=?",
+		int status = select(null, "SELECT `count` FROM `more`.`app_user_period_amount` WHERE `app_id`=? AND `start_date`=? AND `end_date`=?",
 				new Object[] {strAppId, strStartDate, strEndDate}, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
