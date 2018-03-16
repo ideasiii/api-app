@@ -112,9 +112,11 @@
 
 	public boolean isValidStartDate(final String sd, final String ed, String dateFromat) {
 		
+		SimpleDateFormat sdf = new SimpleDateFormat(dateFromat);
+		sdf.setLenient(false);
+		
 		try {
 			//check if startDate before endDate
-		SimpleDateFormat sdf = new SimpleDateFormat(dateFromat);
 		System.out.println(sdf.parse(sd).before(sdf.parse(ed)));
 		
 		} catch (ParseException e) {

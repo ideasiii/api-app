@@ -27,11 +27,11 @@
 			return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid app_id.");
 		}
 
-		if (!isValidDate(strStartDate, "yyyy-mm-dd")) {
+		if (!isValidDate(strStartDate, "yyyy-MM-dd")) {
 			return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid start_date.");
 		}
 		
-		if (!isValidDate(strEndDate, "yyyy-mm-dd")) {
+		if (!isValidDate(strEndDate, "yyyy-MM-dd")) {
 			return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid end_date.");
 		}
 
