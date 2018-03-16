@@ -81,11 +81,11 @@
 
 						while (rs.next()) {
 							++itemCount;
-							amountData.app_id = rs.getString("app_id");
-							amountData.start_date = rs.getString("start_date");
-							amountData.end_date = rs.getString("end_date");
+					//		amountData.app_id = rs.getString("app_id");
+					//		amountData.start_date = rs.getString("start_date");
+					//		amountData.end_date = rs.getString("end_date");
 							amountData.count = rs.getInt("count");
-							amountData.update_date = rs.getString("update_date");
+					//		amountData.update_date = rs.getString("update_date");
 						}
 						return itemCount;
 					}
