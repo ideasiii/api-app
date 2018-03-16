@@ -127,9 +127,6 @@
 	}
 	
 	  
-    public static boolean isValidDateInSameMonth(final String sd, final String ed) {
-    	
-    	
-    }
+ 
 	
 %>
