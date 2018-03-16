@@ -85,7 +85,6 @@
     public static boolean isValidAppId(final String s) {
         return StringUtility.isValid(s);
     }
-    
 	
 	public boolean isValidDate(String dateToValidate, String dateFromat){
 
@@ -110,5 +109,27 @@
 		return true;
 	}
 	
+
+	public boolean isValidStartDate(final String sd, final String ed) {
+		
+		try {
+			//check if startDate before endDate
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+		System.out.println(sdf.parse(sd).before(sdf.parse(ed)));
+		
+		} catch (ParseException e) {
+		
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
+	}
+	
+	  
+    public static boolean isValidDateInSameMonth(final String sd, final String ed) {
+    	
+    	
+    }
 	
 %>
