@@ -54,7 +54,7 @@
 		} else {
 			switch (nCount) {
 			case 0:
-				jobj = ApiResponse.appIdNotFound();
+				jobj = ApiResponse.dataNotFound();
 				break;
 			default:
 				jobj = ApiResponse.byReturnStatus(nCount);

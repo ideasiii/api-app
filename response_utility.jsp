@@ -64,6 +64,14 @@
 			jobj.put("message", "app_id not found.");
 			return jobj;
 		}
+		
+		public static JSONObject dataNotFound() {
+			JSONObject jobj = new JSONObject();
+			jobj.put("success", false);
+			jobj.put("error", STATUS_DATA_NOT_FOUND);
+			jobj.put("message", "data not found.");
+			return jobj;
+		}
 
 		public static JSONObject byReturnStatus(int status) {
 			switch (status) {
