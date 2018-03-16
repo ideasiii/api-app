@@ -44,16 +44,11 @@
 			
 		PeriodAmountData amountData = new PeriodAmountData();
 		JSONObject jobj;
-		/****/
-		System.out.print("app_id: " + strAppId + " start_date: " + strStartDate + " end_date: " +strEndDate);
 		int nCount = queryPeriodUserAmount(strAppId, strStartDate, strEndDate, amountData);
 
 		if (0 < nCount) {
 			jobj = ApiResponse.successTemplate();
 			jobj.put("count", amountData.count);
-			System.out.print("count: " + amountData.count + "update_date: " + amountData.update_date);
-			System.out.print("****period-users******nCount:" + nCount);
-			
 		} else {
 			switch (nCount) {
 			case 0:
@@ -61,7 +56,6 @@
 				break;
 			default:
 				jobj = ApiResponse.byReturnStatus(nCount);
-				System.out.print("****period-users******nCount:" + nCount);
 			}
 		}
 		return jobj;
@@ -75,7 +69,7 @@
 
 	public int queryPeriodUserAmount(final String strAppId, final String strStartDate, final String strEndDate, final PeriodAmountData amountData) {
 
-		int status = select(null, "SELECT * FROM `more`.`app_user_period_amount` WHERE `app_id`=? AND `start_date`=? AND `end_date`=?",
+		int status = select(null, "SELECT * FROM `app_user_period_amount` WHERE `app_id`=? AND `start_date`=? AND `end_date`=?",
 				new Object[] {strAppId, strStartDate, strEndDate}, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;

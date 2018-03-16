@@ -41,11 +41,9 @@
 		JSONObject jobj;
 		int nCount = queryTotalUserAmount(strAppId, strDate, amountData);
 
-		if (0 > nCount) {
+		if (0 < nCount) {
 			jobj = ApiResponse.successTemplate();
 			jobj.put("count", amountData.count);
-			System.out.print("count: " + amountData.count + "update_date: " + amountData.update_date);
-			System.out.print("*****users*****nCount:" + nCount);
 		} else {
 			switch (nCount) {
 			case 0:
@@ -65,7 +63,7 @@
 
 	public int queryTotalUserAmount(final String strAppId, final String strDate, final TotalAmountData amountData) {
 
-		int status = select(null, "SELECT `count` FROM `app_user_total_amount` WHERE `app_id`=? AND `date`=?",
+		int status = select(null, "SELECT * FROM `app_user_total_amount` WHERE `app_id`=? AND `date`=?",
 				new Object[] {strAppId, strDate}, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
