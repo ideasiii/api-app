@@ -73,8 +73,8 @@
 
 	public int queryTimePeriodUser(final String strAppId, final String strStartDate, final String strEndDate, final TimePeriodData timeData) {
 
-		int status = select(null, "SELECT * FROM `app_user_amount_bytime` WHERE `app_id`=? AND `start_date`=? AND `end_date`=?",
-				new Object[] {strAppId, strStartDate, strEndDate}, new ResultSetReader() {
+		int status = select(null, "SELECT * FROM `app_user_amount_bytime` WHERE `app_id`=? AND `start_date`=? AND `end_date`=? AND `period`=?",
+				new Object[] {strAppId, strStartDate, strEndDate, PERIOD_TYPE_DAY}, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
 
