@@ -45,7 +45,7 @@
 			jobj = ApiResponse.successTemplate();
 			jobj.put("count", amountData.count);
 			System.out.print("count: " + amountData.count + "update_date: " + amountData.update_date);
-			System.out.print("**********nCount:" + nCount);
+			System.out.print("*****users*****nCount:" + nCount);
 		} else {
 			switch (nCount) {
 			case 0:
