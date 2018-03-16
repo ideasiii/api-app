@@ -76,7 +76,7 @@
 
 		public static JSONObject byReturnStatus(int status) {
 			switch (status) {
-			case -1:
+			case ERR_EXCEPTION:
 				return ApiResponse.error(ApiResponse.STATUS_INTERNAL_ERROR);
 			default:
 				return ApiResponse.unknownError();
