@@ -42,9 +42,9 @@
 		
 	}
 	
-	private static final String PERIOD_TYPE_DAY = "day";
-	private static final String PERIOD_TYPE_WEEK = "week";
-	private static final String PERIOD_TYPE_MONTH = "month";
+	public static final String PERIOD_TYPE_DAY = "day";
+	public static final String PERIOD_TYPE_WEEK = "week";
+	public static final String PERIOD_TYPE_MONTH = "month";
 	
 
 	/** APP ID CHECK **/
