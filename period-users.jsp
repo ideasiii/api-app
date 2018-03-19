@@ -35,10 +35,8 @@
 		}
 
 		if (!strStartDate.equals(strEndDate)) {
+			//if period not DAY, check startDate before endDate
 			if (!isValidStartDate(strStartDate, strEndDate, "yyyy-MM-dd")) {
-				return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid period values.");
-			}
-			if (!isValidDateInSameMonth(strStartDate, strEndDate, "yyyy-MM-dd")) {
 				return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid period values.");
 			}
 		}

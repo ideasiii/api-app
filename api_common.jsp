@@ -112,8 +112,10 @@
 		sdf.setLenient(false);
 
 		try {
-			//check if startDate before endDate
-			System.out.println(sdf.parse(sd).before(sdf.parse(ed)));
+			//check startDate before endDate
+			boolean validStartDate = sdf.parse(sd).before(sdf.parse(ed));
+			if (validStartDate == false)
+				return false;
 
 		} catch (ParseException e) {
 
@@ -137,7 +139,7 @@
 			Calendar c2 = Calendar.getInstance();
 			c1.setTime(date1);
 			c2.setTime(date2);
-			
+
 			boolean sameMonth = c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH);
 			if (sameMonth == false)
 				return false;
@@ -148,7 +150,7 @@
 			return false;
 		}
 
-	return true;
+		return true;
 	}
 	
 	%>
