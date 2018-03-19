@@ -79,9 +79,8 @@
 	
 	public int getDaysInMonth(String strDate) { 
 		String str[] = strDate.split("-");
-	//	int day = Integer.parseInt(str[0]);
+		int year = Integer.parseInt(str[0]);
 		int month = Integer.parseInt(str[1]);
-		int year = Integer.parseInt(str[2]);
 		
 		YearMonth yearMonthObject = YearMonth.of(year, month);
 		int daysInMonth = yearMonthObject.lengthOfMonth();
