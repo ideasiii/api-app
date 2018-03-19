@@ -3,6 +3,7 @@
 <%@ page import="org.json.JSONArray"%>
 <%@ page import="org.json.JSONObject"%>
 <%@ page import="java.util.Map"%>
+<%@ page import="java.time.YearMonth"%>
 
 <%@include file="api_common.jsp"%>
 <%@include file="response_utility.jsp"%>  
@@ -72,10 +73,17 @@
 	}
 	
 	
-	//public int checkDaysOfMonth(String )  
-	
-	
-	
+	public int getDaysInMonth(String strDate) { 
+		String str[] = strDate.split("-");
+	//	int day = Integer.parseInt(str[0]);
+		int month = Integer.parseInt(str[1]);
+		int year = Integer.parseInt(str[2]);
+		
+		YearMonth yearMonthObject = YearMonth.of(year, month);
+		int daysInMonth = yearMonthObject.lengthOfMonth();
+		System.out.println("*****month: " + month + " year: " + year + " daysInMonth: " + daysInMonth);
+		return daysInMonth;
+	}
 	
 
 	public int queryTimePeriodUser(final String strAppId, final String strStartDate, final String strEndDate, final TimePeriodData timeData) {
@@ -84,16 +92,18 @@
 				new Object[] {strAppId, strStartDate, strEndDate, PERIOD_TYPE_MONTH}, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
+						int nDays = getDaysInMonth(strStartDate);
 
 						while (rs.next()) {
 							++itemCount;
 							timeData.app_id = rs.getString("app_id");
 							timeData.start_date = rs.getString("start_date");
 							timeData.end_date = rs.getString("end_date");
-							timeData.morning_count = rs.getInt("morning_count");
-							timeData.noon_count = rs.getInt("noon_count");
-							timeData.night_count = rs.getInt("night_count");
-							timeData.mid_count = rs.getInt("mid_count");
+							//AVG(day count) in month 
+							timeData.morning_count = (rs.getInt("morning_count")/nDays);
+							timeData.noon_count = (rs.getInt("noon_count")/nDays);
+							timeData.night_count = (rs.getInt("night_count")/nDays);
+							timeData.mid_count = (rs.getInt("mid_count")/nDays);
 							timeData.update_date = rs.getString("update_date");
 						}
 						return itemCount;
