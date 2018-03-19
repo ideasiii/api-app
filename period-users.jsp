@@ -36,7 +36,10 @@
 
 		if (!strStartDate.equals(strEndDate)) {
 			if (!isValidStartDate(strStartDate, strEndDate, "yyyy-MM-dd")) {
-				return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid end_date.");
+				return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid period values.");
+			}
+			if (!isValidDateInSameMonth(strStartDate, strEndDate, "yyyy-MM-dd")) {
+				return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid period values.");
 			}
 		}
 
@@ -99,4 +102,6 @@
 		public String end_date;
 		public int count;
 		public String update_date;
-	}%>
+	}
+	
+	%>

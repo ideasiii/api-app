@@ -106,7 +106,7 @@
 		return true;
 	}
 
-	public boolean isValidStartDate(final String sd, final String ed, String dateFromat) {
+	public boolean isValidStartDate(String sd, String ed, String dateFromat) {
 
 		SimpleDateFormat sdf = new SimpleDateFormat(dateFromat);
 		sdf.setLenient(false);
