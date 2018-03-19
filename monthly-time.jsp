@@ -35,6 +35,10 @@
 		if (!isValidDate(strEndDate, "yyyy-MM-dd")) {
 			return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid end_date.");
 		}
+		
+		if (!isValidStartDate(strStartDate, strEndDate, "yyyy-MM-dd")) {
+			return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid period values.");
+		}
 
 		int nCheckAppIdExit = checkAppIdExistance(strAppId);
 		
