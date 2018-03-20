@@ -50,7 +50,6 @@
 
 		JSONObject jobj = new JSONObject();
 		JSONArray resArray = new JSONArray();
-		String strRequireMonth = getYearMonth(strStartDate);
 		int nCount = queryDailyAmountArray(strAppId, strStartDate, strEndDate, resArray);
 
 		if (0 < nCount) {
@@ -72,15 +71,6 @@
 	public boolean hasRequiredParameters(final HttpServletRequest request) {
 		Map paramMap = request.getParameterMap();
 		return paramMap.containsKey("app_id") && paramMap.containsKey("start_date") && paramMap.containsKey("end_date");
-	}
-
-	public String getYearMonth(String strDate) { 
-		String str[] = strDate.split("-");
-		int year = Integer.parseInt(str[0]);
-		int month = Integer.parseInt(str[1]);
-		String strYearMonth = year + "-" + month + "-";
-		System.out.println("*****strYearMonth: " + strYearMonth);
-		return strYearMonth;
 	}
 	
 	
