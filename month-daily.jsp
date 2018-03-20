@@ -3,7 +3,6 @@
 <%@ page import="org.json.JSONArray"%>
 <%@ page import="org.json.JSONObject"%>
 <%@ page import="java.util.Map"%>
-<%@ page import="java.time.YearMonth"%>
 
 <%@include file="api_common.jsp"%>
 <%@include file="response_utility.jsp"%>  
