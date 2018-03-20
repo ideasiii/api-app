@@ -51,7 +51,7 @@
 		JSONObject jobj = new JSONObject();
 		JSONArray resArray = new JSONArray();
 		String strRequireMonth = getYearMonth(strStartDate);
-		int nCount = queryDailyUserAmount(strAppId, strRequireMonth, resArray);
+		int nCount = queryDailyAmountArray(strAppId, strStartDate, strEndDate, resArray);
 
 		if (0 < nCount) {
 			jobj = ApiResponse.successTemplate();
@@ -84,10 +84,10 @@
 	}
 	
 	
-	public int queryDailyUserAmount(final String strAppId, final String strRequireMonth, final JSONArray out) {
+	public int queryDailyAmountArray(final String strAppId, final String strStartDate, final String strEndDate, final JSONArray out) {
 
-		int status = select(null, "SELECT `start_date`, `count` FROM `app_user_period_amount` WHERE `app_id`=? AND `start_date` LIKE? AND `period`=?",
-				new Object[] {strAppId, strRequireMonth, PERIOD_TYPE_DAY}, new ResultSetReader() {
+		int status = select(null, "SELECT `start_date`, `count` FROM `app_user_period_amount` WHERE `app_id`=? AND period =? AND `start_date` BETWEEN ? AND ?",
+				new Object[] {strAppId, PERIOD_TYPE_DAY, strStartDate, strEndDate}, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
 
