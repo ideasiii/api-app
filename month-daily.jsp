@@ -94,7 +94,7 @@
 						while (rs.next()) {
 							++itemCount;
 							JSONObject jobj = new JSONObject();
-							jobj.put("start_date", rs.getString("start_date"));
+							jobj.put("date", rs.getString("start_date"));
 							jobj.put("count", Integer.toString(rs.getInt("count")));
 							out.put(jobj);
 						}
