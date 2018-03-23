@@ -42,7 +42,7 @@
 
 		int nCheckAppIdExit = checkAppIdExistance(strAppId);
 		
-		if (0 > nCheckAppIdExit)
+		if (0 >= nCheckAppIdExit)
 		{
 			return ApiResponse.appIdNotFound();
 		}
