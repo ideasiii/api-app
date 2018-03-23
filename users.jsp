@@ -41,14 +41,11 @@
 		JSONObject jobj;
 		int nCount = queryTotalUserAmount(strAppId, strDate, amountData);
 
-		if (0 < nCount) {
+		if (0 <= nCount) {
 			jobj = ApiResponse.successTemplate();
 			jobj.put("count", amountData.count);
 		} else {
 			switch (nCount) {
-			case 0:
-				jobj = ApiResponse.dataNotFound();
-				break;
 			default:
 				jobj = ApiResponse.byReturnStatus(nCount);
 			}
