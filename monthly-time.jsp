@@ -76,8 +76,9 @@
 		return paramMap.containsKey("app_id") && paramMap.containsKey("start_date") && paramMap.containsKey("end_date");
 	}
 	
-	
+
 	public int getDaysInMonth(String strDate) { 
+		//get number of days in particular month of particular year
 		String str[] = strDate.split("-");
 		int year = Integer.parseInt(str[0]);
 		int month = Integer.parseInt(str[1]);
