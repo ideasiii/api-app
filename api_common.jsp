@@ -15,7 +15,7 @@
 <%@ page import="java.util.Date"%>
 <%@ page import="java.util.Calendar"%>
 
-<%@ include file="api_db_utility.jsp"%>
+<%@ include file="api_db_utility.jsp"%> 
 
 <%!public final static int ERR_SUCCESS = 1;
 
@@ -27,18 +27,24 @@
 
 		//private static final String DB_IP = "52.68.108.37";
 		//private static final String DB_IP = "10.0.20.130";
-		private static final String DB_IP = "127.0.0.1";
-
-		public static final String DB_URL_MORE = "jdbc:mysql://" + DB_IP
+		private static final String DB_IP_MORE = "127.0.0.1";
+		public static final String DB_URL_MORE = "jdbc:mysql://" + DB_IP_MORE
 				+ ":3306/more?useUnicode=true&characterEncoding=UTF-8&useSSL=false&verifyServerCertificate=false";
-		public static final String DB_USER = "more";
-		public static final String DB_PASS = "ideas123!";
-
+		public static final String DB_USER_MORE = "more";
+		public static final String DB_PASS_MORE = "ideas123!";
+		
+		
+		private static final String DB_IP_TRACKER = "124.9.6.64";
+		public static final String DB_URL_TRACKER = "jdbc:mysql://" + DB_IP_TRACKER
+				+ ":3306/more?useUnicode=true&characterEncoding=UTF-8&useSSL=false&verifyServerCertificate=false";
+		public static final String DB_USER_TRACKER = "moresdk";
+		public static final String DB_PASS_TRACKER = "moresdk123!";
+		
 	}
 
-	public static class AppData {
+	public static class AppListData {
 		public String app_id;
-
+		public String table_name;
 	}
 
 	public static final String PERIOD_TYPE_DAY = "day";
@@ -78,7 +84,34 @@
 		}
 		return jobj;
 	}
+	
+	
+	/** TRACKER DATA APP ID CHECK ***/
+	public int checkTrackerAppIdExist(final String strAppId, AppListData appListData) {
+		final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
+		if (conn == null) {
+			return ApiResponse.error(ApiResponse.STATUS_INTERNAL_ERROR);
+		}
+		
+		int status = select(null, "SELECT `table_name` FROM `tracker`.`app_list` WHERE `app_id`=?", new Object[] { strAppId },
+				new ResultSetReader() {
 
+					public int read(ResultSet rs) throws Exception {
+						int itemCount = 0;
+						while (rs.next()) {
+							++itemCount;
+							appListData.table_name = rs.getString("table_name");
+						}
+						return itemCount;
+					}
+				});
+		closeConn(conn);
+		return status;
+	}
+	
+	
+	
+	/** VALIDATIONS **/
 	public static boolean isValidAppId(final String s) {
 		return StringUtility.isValid(s);
 	}
@@ -105,6 +138,10 @@
 
 		return true;
 	}
+	
+	 public static boolean isNotEmptyString(final String s) {
+	    	return s != null && s.length() > 0;
+	    }
 
 	public boolean isValidStartDate(String sd, String ed, String dateFromat) {
 

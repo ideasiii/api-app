@@ -37,7 +37,7 @@ public int select(Connection conn, final String template,
 	
     try {
         if (conn == null) {
-           conn = connect(Common.DB_URL_MORE, Common.DB_USER, Common.DB_PASS);
+           conn = connect(Common.DB_URL_MORE, Common.DB_USER_MORE, Common.DB_PASS_MORE);
            closeConnOnReturn = true;
         }
         pst = conn.prepareStatement(template);
