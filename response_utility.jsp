@@ -11,6 +11,8 @@
 		public static final String STATUS_INVALID_PARAMETER = "ER0220";
 
 		public static final String STATUS_CONFLICTS = "ER0240";
+		
+		public static final String STATUS_UNAUTHORIZED = "ER0410";
 
 		public static final String STATUS_INTERNAL_ERROR = "ER0500";
 
@@ -57,6 +59,14 @@
 			jobj.put("message", "Unknown error.");
 			return jobj;
 		}
+		
+		public static JSONObject unauthorizedError() {
+			JSONObject jobj = new JSONObject();
+			jobj.put("success", false);
+			jobj.put("error", STATUS_UNAUTHORIZED);
+			jobj.put("message", "Unauthorized.");
+			return jobj;
+		}
 
 		public static JSONObject appIdNotFound() {
 			JSONObject jobj = new JSONObject();
@@ -70,7 +80,7 @@
 			JSONObject jobj = new JSONObject();
 			jobj.put("success", false);
 			jobj.put("error", STATUS_DATA_NOT_FOUND);
-			jobj.put("message", "data not found.");
+			jobj.put("message", "Data not found.");
 			return jobj;
 		}
 

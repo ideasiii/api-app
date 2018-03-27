@@ -41,9 +41,9 @@
 			}
 		}
 
-		int nCheckAppIdExit = checkAppIdExistance(strAppId);
+		int nCheckAppIdExist = checkAppIdExistance(strAppId);
 
-		if (0 >= nCheckAppIdExit) {
+		if (0 >= nCheckAppIdExist) {
 			return ApiResponse.appIdNotFound();
 		}
 
