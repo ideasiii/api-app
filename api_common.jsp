@@ -36,7 +36,7 @@
 		
 		private static final String DB_IP_TRACKER = "124.9.6.64";
 		public static final String DB_URL_TRACKER = "jdbc:mysql://" + DB_IP_TRACKER
-				+ ":3306/more?useUnicode=true&characterEncoding=UTF-8&useSSL=false&verifyServerCertificate=false";
+				+ ":3306/tracker?useUnicode=true&characterEncoding=UTF-8&useSSL=false&verifyServerCertificate=false";
 		public static final String DB_USER_TRACKER = "moresdk";
 		public static final String DB_PASS_TRACKER = "moresdk123!";
 		
