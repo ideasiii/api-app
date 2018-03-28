@@ -79,7 +79,7 @@
 		int nCount = queryCoordinates(strStartDate, strEndDate, tp.start_hour, tp.end_hour, strTableName, resArray);
 
 		if (0 < nCount) {
-			jobj = ApiResponse.successTemplate();
+			jobj = ApiResponse.successTemplate(); 
 			jobj.put("count", nCount);
 			jobj.put("result", resArray);
 
