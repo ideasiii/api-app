@@ -46,11 +46,7 @@
 			return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid period values.");
 		}
 
-		final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
-		if (conn == null) {
-			return ApiResponse.error(ApiResponse.STATUS_INTERNAL_ERROR, "test.");
-		}
-
+		//check APP ID from DB_MORE before connect to DB_Tracker
 		int nCheckAppIdExist = checkAppIdExistance(strAppId);
 		if (0 >= nCheckAppIdExist) {
 			switch (nCheckAppIdExist) {
@@ -59,6 +55,11 @@
 			default:
 				return ApiResponse.byReturnStatus(nCheckAppIdExist);
 			}
+		}
+
+		final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
+		if (conn == null) {
+			return ApiResponse.error(ApiResponse.STATUS_INTERNAL_ERROR);
 		}
 
 		AppListData appListData = new AppListData();
