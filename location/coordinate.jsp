@@ -132,7 +132,8 @@
 
 	public int queryCoordinates(final String strStartDate, final String strEndDate, final String strStartHour,
 			final String strEndHour, final String strTableName, final JSONArray out) {
-
+System.out.println("strTableName: " + strTableName);
+		
 		int status = select(null,
 				"SELECT latitude, longitude FROM ? WHERE create_date BETWEEN ? AND ? AND HOUR(create_date) BETWEEN ? AND ?",
 				new Object[] { strTableName, strStartDate, strEndDate, strStartHour, strEndHour },
