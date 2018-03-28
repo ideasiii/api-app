@@ -144,11 +144,11 @@
 							++itemCount;
 							JSONObject jobj = new JSONObject();
 							String la = rs.getString("latitude");
-							String lo = rs.getString("longtitude");
+							String lo = rs.getString("longitude");
 							
 							if (isNotEmptyString(la) && isNotEmptyString(la)){
-							jobj.put("latitude", rs.getString("latitude"));
-							jobj.put("longitude", rs.getString("longitude"));
+							jobj.put("latitude", la);
+							jobj.put("longitude", lo);
 							out.put(jobj);
 							}
 						}
