@@ -13,7 +13,7 @@
 	out.print(jobj.toString());
 %>
 
-<%!
+<%! 
 		private JSONObject processRequest(HttpServletRequest request) {
 		if (!hasRequiredParameters(request)) {
 			return ApiResponse.error(ApiResponse.STATUS_MISSING_PARAMETER);

@@ -6,8 +6,8 @@
 <%@ page import="java.time.YearMonth"%>
 
 <%@include file="api_common.jsp"%>
-<%@include file="response_utility.jsp"%>  
-
+<%@include file="response_utility.jsp"%>   
+ 
 <% 
 	request.setCharacterEncoding("UTF-8");
 	JSONObject jobj = processRequest(request);
