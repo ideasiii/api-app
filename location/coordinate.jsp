@@ -57,7 +57,7 @@
 			}
 		}
 
-		final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
+		 Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
 		if (conn == null) {
 			return ApiResponse.error(ApiResponse.STATUS_INTERNAL_ERROR);
 		}
