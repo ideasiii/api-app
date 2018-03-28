@@ -134,7 +134,7 @@
 			final String strEndHour, final JSONArray out) {
 		final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
 		int status = select(conn,
-		 		"SELECT t.* FROM (SELECT table_name FROM tracker.app_list WHERE app_id =?) t WHERE t.create_date BETWEEN ? AND ? AND HOUR(t.create_date) BETWEEN ? AND ?",
+		 		"SELECT t.latitude, t.longitude FROM (SELECT table_name AS t FROM tracker.app_list WHERE app_id =?) y WHERE t.create_date BETWEEN ? AND ? AND HOUR(t.create_date) BETWEEN ? AND ?",
 				new Object[] { strAppId, strStartDate, strEndDate, strStartHour, strEndHour },
 				new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
