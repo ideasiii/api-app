@@ -94,7 +94,7 @@
 			return ERR_EXCEPTION;
 		}
 		
-		int status = select(null, "SELECT `table_name` FROM `tracker`.`app_list` WHERE `app_id`=?", new Object[] { strAppId },
+		int status = select(conn, "SELECT `table_name` FROM `tracker`.`app_list` WHERE `app_id`=?", new Object[] { strAppId },
 				new ResultSetReader() {
 
 					public int read(ResultSet rs) throws Exception {
