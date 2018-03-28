@@ -135,7 +135,7 @@
 		
 		int status = select(null,
 				"SELECT `latitude`, `longitude` FROM " + strTableName + " WHERE `create_date` BETWEEN ? AND ? AND HOUR(`create_date`) BETWEEN ? AND ?",
-				new Object[] { strTableName, strStartDate, strEndDate, strStartHour, strEndHour },
+				new Object[] { strStartDate, strEndDate, strStartHour, strEndHour },
 				new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
