@@ -62,11 +62,11 @@
 			return ApiResponse.error(ApiResponse.STATUS_INTERNAL_ERROR, "test.");
 		}
 
-		AppListData appListData = new AppListData();
-		int nCheckTable = checkTrackerAppIdExist(strAppId, appListData);
-		if (0 < nCheckTable) {
-			strTableName = appListData.table_name;
-		} else {
+		//AppListData appListData = new AppListData();
+		int nCheckTable = checkTrackerAppIdExist(strAppId);
+		if (0 >= nCheckTable) { 
+			//strTableName = appListData.table_name;
+		//} else {
 			switch (nCheckTable) {
 			case 0:
 				return ApiResponse.unauthorizedError();
@@ -74,10 +74,10 @@
 				return ApiResponse.byReturnStatus(nCheckTable);
 			}
 		}
-		System.out.println("********strTableName: " + strTableName);
+		
 		JSONObject jobj = new JSONObject();
 		JSONArray resArray = new JSONArray();
-		int nCount = queryCoordinates(strStartDate, strEndDate, tp.start_hour, tp.end_hour, strTableName, resArray);
+		int nCount = queryCoordinates(strAppId, strStartDate, strEndDate, tp.start_hour, tp.end_hour, resArray);
 
 		if (0 < nCount) {
 			jobj = ApiResponse.successTemplate(); 
@@ -130,12 +130,12 @@
 		return true;
 	}
 
-	public int queryCoordinates(final String strStartDate, final String strEndDate, final String strStartHour,
-			final String strEndHour, final String strTableName, final JSONArray out) {
+	public int queryCoordinates(final String strAppId, final String strStartDate, final String strEndDate, final String strStartHour,
+			final String strEndHour, final JSONArray out) {
 		
 		int status = select(null,
-				"SELECT latitude, longitude FROM ? WHERE create_date BETWEEN ? AND ? AND HOUR(create_date) BETWEEN ? AND ?",
-				new Object[] { strTableName, strStartDate, strEndDate, strStartHour, strEndHour },
+				"SELECT `latitude`, `longitude` FROM (SELECT `table_name` FROM `tracker`.`app_list` WHERE `app_id` =?) WHERE `create_date` BETWEEN ? AND ? AND HOUR(`create_date`) BETWEEN ? AND ?",
+				new Object[] { strAppId, strStartDate, strEndDate, strStartHour, strEndHour },
 				new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
