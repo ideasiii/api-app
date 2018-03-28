@@ -87,20 +87,21 @@
 	
 	
 	/** TRACKER DATA APP ID CHECK ***/
-	public int checkTrackerAppIdExist(final String strAppId) {
+	public int checkTrackerAppIdExist(final String strAppId, final AppListData appListData) {
 		final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
 		if (conn == null) {
 			System.out.println("failed to connect DB.Tracker");
 			return ERR_EXCEPTION;
 		}
 		
-		int status = select(conn, "SELECT NULL FROM `tracker`.`app_list` WHERE `app_id`=?", new Object[] { strAppId },
+		int status = select(conn, "SELECT `table_name` FROM `tracker`.`app_list` WHERE `app_id`=?", new Object[] { strAppId },
 				new ResultSetReader() {
 
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
 						while (rs.next()) {
 							++itemCount;
+							appListData.table_name = rs.getString("table_name");
 						}
 						return itemCount;
 					}
