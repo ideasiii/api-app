@@ -90,6 +90,7 @@
 	public int checkTrackerAppIdExist(final String strAppId, final AppListData appListData) {
 		final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
 		if (conn == null) {
+			System.out.println("failed to connect DB.Tracker");
 			return ERR_EXCEPTION;
 		}
 		
