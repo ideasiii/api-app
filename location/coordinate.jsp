@@ -48,7 +48,8 @@
 
 		final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
 		if (conn == null) {
-			return ApiResponse.error(ApiResponse.STATUS_INTERNAL_ERROR);
+			return ApiResponse.unauthorizedError();
+			//return ApiResponse.error(ApiResponse.STATUS_INTERNAL_ERROR);
 		}
 
 		int nCheckAppIdExist = checkAppIdExistance(strAppId);
@@ -126,7 +127,6 @@
 				return false;
 			}
 		}
-
 		return true;
 	}
 
