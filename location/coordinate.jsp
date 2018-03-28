@@ -108,24 +108,21 @@
 
 		} else {
 			tp.time_period = request.getParameter("time_period").trim();
-			switch (tp.time_period) {
-			case "morning":
+			
+			if (tp.time_period.equals("morning")) {
 				tp.start_hour = "06";
 				tp.end_hour = "11";
-				break;
-			case "noon":
+			} else if (tp.time_period.equals("noon")) {
 				tp.start_hour = "12";
 				tp.end_hour = "17";
-				break;
-			case "night":
+			} else if (tp.time_period.equals("night")) {
 				tp.start_hour = "18";
 				tp.end_hour = "23";
-				break;
-			case "mid":
+			} else if (tp.time_period.equals("mid")) {
 				tp.start_hour = "00";
 				tp.end_hour = "05";
-				break;
-			default:
+			} else {
+				
 				return false;
 			}
 		}
