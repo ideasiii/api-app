@@ -90,7 +90,7 @@
 	public int checkTrackerAppIdExist(final String strAppId, AppListData appListData) {
 		final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
 		if (conn == null) {
-			return ApiResponse.error(ApiResponse.STATUS_INTERNAL_ERROR);
+			return ERR_EXCEPTION;
 		}
 		
 		int status = select(null, "SELECT `table_name` FROM `tracker`.`app_list` WHERE `app_id`=?", new Object[] { strAppId },
