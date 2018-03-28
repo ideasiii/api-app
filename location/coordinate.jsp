@@ -71,7 +71,7 @@
 			case 0:
 				return ApiResponse.unauthorizedError();
 			default:
-				return ApiResponse.byReturnStatus(nCheckAppIdExist);
+				return ApiResponse.byReturnStatus(nCheckTable);
 			}
 		}
 
