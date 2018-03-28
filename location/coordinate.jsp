@@ -143,9 +143,14 @@
 						while (rs.next()) {
 							++itemCount;
 							JSONObject jobj = new JSONObject();
+							String la = rs.getString("latitude");
+							String lo = rs.getString("longtitude");
+							
+							if (isNotEmptyString(la) && isNotEmptyString(la)){
 							jobj.put("latitude", rs.getString("latitude"));
 							jobj.put("longitude", rs.getString("longitude"));
 							out.put(jobj);
+							}
 						}
 						return itemCount;
 					}
