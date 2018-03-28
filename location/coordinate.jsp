@@ -134,7 +134,7 @@
 			final String strEndHour, final String strTableName, final JSONArray out) {
 
 		int status = select(null,
-				"SELECT `latitude`, `longitude` FROM ? WHERE `create_date` BETWEEN ? AND ? AND HOUR(create_date) BETWEEN ? AND ?",
+				"SELECT latitude, longitude FROM ? WHERE create_date BETWEEN ? AND ? AND HOUR(create_date) BETWEEN ? AND ?",
 				new Object[] { strTableName, strStartDate, strEndDate, strStartHour, strEndHour },
 				new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
