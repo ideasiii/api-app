@@ -47,7 +47,7 @@
 		}
 
 		//check APP ID from DB_MORE before connect to DB_Tracker
-	/*	int nCheckAppIdExist = checkAppIdExistance(strAppId);
+		int nCheckAppIdExist = checkAppIdExistance(strAppId);
 		if (0 >= nCheckAppIdExist) {
 			switch (nCheckAppIdExist) {
 			case 0:
@@ -55,12 +55,12 @@
 			default:
 				return ApiResponse.byReturnStatus(nCheckAppIdExist);
 			}
-		}*/
-
-		final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
-		if (conn == null) {
-			return ApiResponse.error(ApiResponse.STATUS_INTERNAL_ERROR, "test.");
 		}
+
+	/** final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
+		if (conn == null) {
+			return ApiResponse.error(ApiResponse.STATUS_INTERNAL_ERROR);
+		}*/
 
 		AppListData appListData = new AppListData();
 		int nCheckTable = checkTrackerAppIdExist(strAppId, appListData);
