@@ -132,8 +132,8 @@
 
 	public int queryCoordinates(final String strAppId, final String strStartDate, final String strEndDate, final String strStartHour,
 			final String strEndHour, final JSONArray out) {
-		
-		int status = select(null,
+		final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
+		int status = select(conn,
 				"SELECT `latitude`, `longitude` FROM (SELECT `table_name` FROM `tracker`.`app_list` WHERE `app_id` =?) AS t WHERE `create_date` BETWEEN ? AND ? AND HOUR(`create_date`) BETWEEN ? AND ?",
 				new Object[] { strAppId, strStartDate, strEndDate, strStartHour, strEndHour },
 				new ResultSetReader() {
