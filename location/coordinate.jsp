@@ -62,6 +62,7 @@
 			return ApiResponse.error(ApiResponse.STATUS_INTERNAL_ERROR);
 		}*/
 
+		//check table name exist in DB_Tracker
 		AppListData appListData = new AppListData();
 		int nCheckTable = checkTrackerAppIdExist(strAppId, appListData);
 		if (0 < nCheckTable) {
