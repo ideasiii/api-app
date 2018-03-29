@@ -57,11 +57,12 @@
 		System.out.println("*********Time: " + strTime);
 		
 		JSONObject jobj = new JSONObject();
-		int nCount = queryCurrentUserAmount(strTime, strTableName);
+		CountData cd = new CountData();
+		int nCount = queryCurrentUserAmount(strTime, strTableName, cd);
 
 		if (0 < nCount) {
 			jobj = ApiResponse.successTemplate(); 
-			jobj.put("count", nCount);
+			jobj.put("count", cd.distinct_count);
 
 		} else {
 			switch (nCount) {
@@ -81,7 +82,7 @@
 	}
 
 
-	public int queryCurrentUserAmount(final String strTime, final String strTableName) {
+	public int queryCurrentUserAmount(final String strTime, final String strTableName, CountData cd) {
 		final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
 		int status = select(conn,
 				"SELECT COUNT(DISTINCT id) FROM " + strTableName + " WHERE `create_date` >= ?",
@@ -92,6 +93,7 @@
 
 						while (rs.next()) {
 							++itemCount;
+							cd.distinct_count = rs.getInt("COUNT(DISTINCT id)");
 						}
 						return itemCount;
 					}
@@ -99,6 +101,8 @@
 		return status;
 	}
 
-	
+	private static class CountData {
+		int distinct_count;
+	}
 	
 	%>
