@@ -82,7 +82,7 @@
 	}
 
 
-	public int queryCurrentUserAmount(final String strTime, final String strTableName, CountData cd) {
+	public int queryCurrentUserAmount(final String strTime, final String strTableName, final CountData cd) {
 		final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
 		int status = select(conn,
 				"SELECT COUNT(DISTINCT id) FROM " + strTableName + " WHERE `create_date` >= ?",
@@ -101,8 +101,8 @@
 		return status;
 	}
 
-	private static class CountData {
-		int distinct_count;
+	public static class CountData {
+		public int distinct_count;
 	}
 	
 	%>
