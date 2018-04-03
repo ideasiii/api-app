@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="application/json; charset=UTF-8"
 	pageEncoding="UTF-8" session="false"%>
+<%@page import="java.io.*"%> 	
+	
 <%@include file="poi_common.jsp"%>
 
 
@@ -11,7 +13,8 @@
 
 <%!
 
-	private JSONObject processRequest(HttpServletRequest request) {
+	private JSONObject processRequest(HttpServletRequest request) throws ServletException, IOException
+{
 	if (!hasRequiredParameters(request)) {
 		return ApiResponse.error(ApiResponse.STATUS_MISSING_PARAMETER);
 	}
