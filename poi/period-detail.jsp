@@ -21,6 +21,7 @@
 	final String strEndDate = request.getParameter("end_date");
 	final String strTimeInterval = request.getParameter("time_interval");
 	final String strCategory = request.getParameter("category");
+	System.out.print("**************cate:" + strCategory);
 
 	if (!isValidAppId(strAppId)) {
 		return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid app_id.");
