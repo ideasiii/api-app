@@ -22,11 +22,11 @@
 	final String strAppId = request.getParameter("app_id");
 	final String strStartDate = request.getParameter("start_date");
 	final String strEndDate = request.getParameter("end_date");
-	final String strTimeInterval = request.getParameter("time_interval");
+	final String strArea = request.getParameter("area");
 	//final String strCategory = request.getParameter("category");
 	
 	String strCategory =  request.getParameter("category");
-	strCategory = new String(strCategory.getBytes("ISO-8859-1"),"UTF-8"); 
+	strCategory = new String(strCategory.getBytes("ISO-8859-1"),"UTF-8");
 
 	if (!isValidAppId(strAppId)) {
 		return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid app_id.");
@@ -44,8 +44,8 @@
 		return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid period values.");
 	}
 
-	if (!checkTimeInterval(strTimeInterval)) {
-		return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid time_interval.");
+	if (!checkArea(strArea)) {
+		return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid area.");
 	}
 	
 	if (!isNotEmptyString(strCategory)) {
@@ -61,7 +61,7 @@
 	
 	JSONObject jobj = new JSONObject();
 	JSONArray resArray = new JSONArray();
-	int nCount = queryPeriodPoiArray(strAppId, strCategory, strStartDate, strEndDate, strTimeInterval, resArray);
+	int nCount = queryAreaPoiArray(strAppId, strCategory, strStartDate, strEndDate, strArea, resArray);
 
 	if (0 < nCount) {
 		jobj = ApiResponse.successTemplate();
@@ -81,13 +81,13 @@
 
 	public boolean hasRequiredParameters(final HttpServletRequest request) {
 	Map paramMap = request.getParameterMap();
-	return paramMap.containsKey("app_id") && paramMap.containsKey("start_date") && paramMap.containsKey("end_date") && paramMap.containsKey("time_interval") && paramMap.containsKey("category");
+	return paramMap.containsKey("app_id") && paramMap.containsKey("start_date") && paramMap.containsKey("end_date") && paramMap.containsKey("area") && paramMap.containsKey("category");
 	}
 	
-	public int queryPeriodPoiArray(final String strAppId,final String strCategory, final String strStartDate, final String strEndDate, final String strTimeInterval, final JSONArray out) {
+	public int queryAreaPoiArray(final String strAppId,final String strCategory, final String strStartDate, final String strEndDate, final String strArea, final JSONArray out) {
 
-		int status = select(null, "SELECT `poi`, `category`, `count` FROM `app_user_locational_period_poi` WHERE `app_id`=? AND `category`=? AND `time_interval`=? AND `start_date`=? AND `end_date`=? ORDER BY `count` DESC",
-				new Object[] {strAppId, strCategory, strTimeInterval, strStartDate, strEndDate}, new ResultSetReader() {
+		int status = select(null, "SELECT `poi`, `category`, `count` FROM `app_user_locational_area_poi` WHERE `app_id`=? AND `category`=? AND `area`=? AND `start_date`=? AND `end_date`=? ORDER BY `count` DESC",
+				new Object[] {strAppId, strCategory, strArea, strStartDate, strEndDate}, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
 
