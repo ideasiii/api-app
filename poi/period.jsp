@@ -75,7 +75,7 @@
 	
 	public int queryPeriodCateArray(final String strAppId, final String strStartDate, final String strEndDate, final String strTimeInterval, final JSONArray out) {
 
-		int status = select(null, "SELECT `category`, `count`, `update_date` FROM `app_user_locational_period` WHERE `app_id`=? AND `time_interval`=? AND `start_date`=? AND `end_date`=? ORDER BY `update_date` DESC",
+		int status = select(null, "SELECT `category`, `count` FROM `app_user_locational_period` WHERE `app_id`=? AND `time_interval`=? AND `start_date`=? AND `end_date`=? ORDER BY `count` DESC",
 				new Object[] {strAppId, strTimeInterval, strStartDate, strEndDate}, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
@@ -85,7 +85,6 @@
 							JSONObject jobj = new JSONObject();
 							jobj.put("category", rs.getString("category"));
 							jobj.put("count", rs.getInt("count"));
-							jobj.put("update_date", rs.getString("update_date"));
 							out.put(jobj);
 						}
 						return itemCount;
