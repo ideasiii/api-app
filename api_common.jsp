@@ -40,6 +40,8 @@
 		public static final String DB_USER_TRACKER = "moresdk";
 		public static final String DB_PASS_TRACKER = "moresdk123!";
 		
+		private static final String DB_IP_MONGO = "10.0.20.30";
+		
 	}
 
 	public static class AppListData {
