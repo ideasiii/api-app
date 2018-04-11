@@ -102,8 +102,7 @@
 				dataQuery.put("ID", new BasicDBObject("$regex", strID).append("$options", "i"));
 				dataQuery.put("create_date", new BasicDBObject("$gte", strSD).append("$lte", strED + " 23:59:59"));
 				DBCursor cursor = collection.find(dataQuery);
-				System.out.println("*****************dataQ***");
-				
+				System.out.println("*****************dataQ***" + dataQuery.toString());
 				
 				while (cursor.hasNext()) {
 					System.out.println("*****************curcor***");
