@@ -102,8 +102,11 @@
 				dataQuery.put("ID", new BasicDBObject("$regex", strID).append("$options", "i"));
 				dataQuery.put("create_date", new BasicDBObject("$gte", strSD).append("$lte", strED + " 23:59:59"));
 				DBCursor cursor = collection.find(dataQuery);
-
+				System.out.println("*****************dataQ***");
+				
+				
 				while (cursor.hasNext()) {
+					System.out.println("*****************curcor***");
 					++status;
 					JSONObject jsonobj = new JSONObject(cursor.next().toString());
 					jsonobj.remove("_id");
