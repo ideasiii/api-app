@@ -103,6 +103,7 @@
 				DBCursor cursor = collection.find(dataQuery);
 
 				while (cursor.hasNext()) {
+					++status;
 					JSONObject jsonobj = new JSONObject(cursor.next().toString());
 					jsonobj.remove("_id");
 					out.put(jsonobj);
