@@ -93,7 +93,9 @@
 			f1.strField = "ID";
 			f1.mapFilter.put("$regex", strAppId);
 			listFilter.add(f1);
-
+			
+			System.out.println("********************");
+			
 			if (null != strStartDate || null != strEndDate) {
 				Mongo.Filter f2 = new Mongo.Filter();
 				f2.strField = "create_date";
@@ -108,6 +110,7 @@
 			}
 
 			status = mongo.query("access", "mobile", listFilter, listResult);
+			System.out.println("*****************status***" + status);
 			if (0 < status) {
 			out.put(listResult);
 			}
