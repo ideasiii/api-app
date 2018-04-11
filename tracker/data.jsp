@@ -94,6 +94,7 @@
 			DB db = mongoClient.getDB("access");
 
 			if (null != db) {
+				System.out.println("*****************db***");
 				DBCollection collection = db.getCollection("mobile");
 				closeConnOnReturn = true;
 
@@ -107,7 +108,6 @@
 					JSONObject jsonobj = new JSONObject(cursor.next().toString());
 					jsonobj.remove("_id");
 					out.put(jsonobj);
-					System.out.println("*****************jsonobj***" + jsonobj);
 				}
 			}
 
