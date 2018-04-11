@@ -94,7 +94,7 @@
 			f1.mapFilter.put("$regex", strAppId);
 			listFilter.add(f1);
 			
-			System.out.println("********************");
+			System.out.println("********************"); 
 			
 			if (null != strStartDate || null != strEndDate) {
 				Mongo.Filter f2 = new Mongo.Filter();
