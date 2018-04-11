@@ -107,6 +107,7 @@
 					JSONObject jsonobj = new JSONObject(cursor.next().toString());
 					jsonobj.remove("_id");
 					out.put(jsonobj);
+					System.out.println("*****************jsonobj***" + jsonobj);
 				}
 			}
 
