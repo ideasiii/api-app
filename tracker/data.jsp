@@ -57,6 +57,7 @@
 		if (0 < nCount) {
 			jobj = ApiResponse.successTemplate();
 			jobj.put("result", resArray);
+			System.out.println("********************" + resArray.length());
 
 		} else {
 			switch (nCount) {
