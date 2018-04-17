@@ -58,7 +58,7 @@
 	
 	public int queryCategoryArray(final String strAppId, final JSONArray out) {
 
-		int status = select(null, "SELECT `category`, `count` FROM `app_user_locational_category` WHERE `app_id`=? ORDER BY `count` DESC",
+		int status = select(null, "SELECT `category`, `count` FROM `app_user_pre_category` WHERE `app_id`=? ORDER BY `count` DESC",
 				new Object[] {strAppId}, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;

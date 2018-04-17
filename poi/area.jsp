@@ -75,7 +75,7 @@
 	
 	public int queryAreaCateArray(final String strAppId, final String strStartDate, final String strEndDate, final String strArea, final JSONArray out) {
 
-		int status = select(null, "SELECT `category`, `count` FROM `app_user_locational_area` WHERE `app_id`=? AND `area`=? AND `start_date`=? AND `end_date`=? ORDER BY `count` DESC",
+		int status = select(null, "SELECT `category`, `count` FROM `app_user_pre_area` WHERE `app_id`=? AND `area`=? AND `start_date`=? AND `end_date`=? ORDER BY `count` DESC",
 				new Object[] {strAppId, strArea, strStartDate, strEndDate}, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;

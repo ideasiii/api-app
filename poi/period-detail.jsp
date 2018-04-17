@@ -86,7 +86,7 @@
 	
 	public int queryPeriodPoiArray(final String strAppId,final String strCategory, final String strStartDate, final String strEndDate, final String strTimeInterval, final JSONArray out) {
 
-		int status = select(null, "SELECT `poi`, `category`, `count` FROM `app_user_locational_period_poi` WHERE `app_id`=? AND `category`=? AND `time_interval`=? AND `start_date`=? AND `end_date`=? ORDER BY `count` DESC",
+		int status = select(null, "SELECT `poi`, `category`, `count` FROM `app_user_pre_period_poi` WHERE `app_id`=? AND `category`=? AND `time_interval`=? AND `start_date`=? AND `end_date`=? ORDER BY `count` DESC",
 				new Object[] {strAppId, strCategory, strTimeInterval, strStartDate, strEndDate}, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;

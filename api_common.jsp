@@ -47,6 +47,7 @@
 	public static class AppListData {
 		public String app_id;
 		public String table_name;
+		public String poi_table_name;
 	}
 
 	public static final String PERIOD_TYPE_DAY = "day";
@@ -104,6 +105,7 @@
 						while (rs.next()) {
 							++itemCount;
 							appListData.table_name = rs.getString("table_name");
+							appListData.poi_table_name = rs.getString("poi_table_name");
 						}
 						return itemCount;
 					}

@@ -66,7 +66,7 @@
 	
 	public int queryCatePoiArray(final String strAppId,final String strCategory, final JSONArray out) {
 
-		int status = select(null, "SELECT `poi`, `category`, `count` FROM `app_user_locational_category_poi` WHERE `app_id`=? AND `category`=? ORDER BY `count` DESC",
+		int status = select(null, "SELECT `poi`, `category`, `count` FROM `app_user_pre_category_poi` WHERE `app_id`=? AND `category`=? ORDER BY `count` DESC",
 				new Object[] {strAppId, strCategory}, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
