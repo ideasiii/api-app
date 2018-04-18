@@ -97,10 +97,12 @@
 			System.out.println("********cateArray: " + cateArray);
 			
 			if (0 > cateCount) {
-				
+				System.out.println("********");
 				for (int i = 0; i < cateArray.length(); i++) {
+					System.out.println("***for*****");
 					JSONObject o = cateArray.getJSONObject(i);
 					String strCate = o.getString("tag"); 
+					
 					
 					nCount = queryCoordinates(strStartDate, strEndDate, tp.start_hour, tp.end_hour, strCate, strTableName, coorArray);
 
