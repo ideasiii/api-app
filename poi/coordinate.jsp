@@ -107,6 +107,7 @@
 					nCount = queryCoordinates(strStartDate, strEndDate, tp.start_hour, tp.end_hour, strCate, strTableName, coorArray);
 
 					if (0 < nCount) {
+						resultObj.put("category", strCate);
 						resultObj.put("count", nCount);
 						resultObj.put("coordinate", coorArray);
 						resArray.put(resultObj);
