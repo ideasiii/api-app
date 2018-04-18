@@ -83,7 +83,7 @@
 		System.out.println("********PoiTableName: " + strTableName);
 		
 		JSONArray cateArray = new JSONArray();
-		JSONObject resultObj = new JSONObject();
+		
 		JSONArray coorArray = new JSONArray();
 		int cateCount = 0;
 		int nCount = 0;
@@ -98,15 +98,16 @@
 			
 			if (0 < cateCount) {
 				System.out.println("********");
+				
 				for (int i = 0; i < cateArray.length(); i++) {
 					System.out.println("***for*****");
 					JSONObject o = cateArray.getJSONObject(i);
 					String strCate = o.getString("tag"); 
 					
-					
 					nCount = queryCoordinates(strStartDate, strEndDate, tp.start_hour, tp.end_hour, strCate, strTableName, coorArray);
 
 					if (0 < nCount) {
+						JSONObject resultObj = new JSONObject();
 						resultObj.put("category", strCate);
 						resultObj.put("count", nCount);
 						resultObj.put("coordinate", coorArray);
