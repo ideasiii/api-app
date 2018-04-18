@@ -28,7 +28,8 @@
 		final String strTimePeriod = request.getParameter("time_period");
 		final String strStartDate = request.getParameter("start_date");
 		final String strEndDate = request.getParameter("end_date");
-		final String strCategory = request.getParameter("category");
+		String strCategory =  request.getParameter("category");
+		strCategory = new String(strCategory.getBytes("ISO-8859-1"),"UTF-8");
 		final String strTableName;
 
 		if (!isValidAppId(strAppId)) {
