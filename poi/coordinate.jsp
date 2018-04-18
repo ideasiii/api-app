@@ -91,11 +91,13 @@
 		JSONArray resArray = new JSONArray();
 		
 		if (strCategory.equals("all")) {
-		
+			System.out.println("********all");
 			cateCount = getCategoryList(strTableName, cateArray);
+			System.out.println("********cateCount: " + cateCount);
+			System.out.println("********cateArray: " + cateArray);
 			
 			if (0 > cateCount) {
-				System.out.println("********cateCount: " + cateCount);
+				
 				for (int i = 0; i < cateArray.length(); i++) {
 					JSONObject o = cateArray.getJSONObject(i);
 					String strCate = o.getString("tag"); 
