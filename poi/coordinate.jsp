@@ -136,11 +136,12 @@
 
 		} else {
 			// select single category
+			System.out.println("********category: " + strCategory);
 			JSONArray coorArray = new JSONArray();
 
 			nCount = queryCoordinates(strStartDate, strEndDate, tp.start_hour, tp.end_hour, strCategory, strTableName,
 					coorArray);
-
+			System.out.println("********nCount: " + nCount);
 			if (0 < nCount) {
 				JSONObject resultObj = new JSONObject();
 				resultObj.put("category", strCategory);
