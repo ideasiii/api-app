@@ -90,13 +90,13 @@
 		JSONObject jobj = new JSONObject();
 		JSONArray resArray = new JSONArray();
 		
-		if (strCategory.trim().equals("all")) {
+		if (strCategory.equals("all")) {
 			System.out.println("********all");
 			cateCount = getCategoryList(strTableName, cateArray);
 			System.out.println("********cateCount: " + cateCount);
 			System.out.println("********cateArray: " + cateArray);
 			
-			if (0 > cateCount) {
+			if (0 < cateCount) {
 				System.out.println("********");
 				for (int i = 0; i < cateArray.length(); i++) {
 					System.out.println("***for*****");
