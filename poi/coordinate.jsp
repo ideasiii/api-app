@@ -84,7 +84,7 @@
 		
 		JSONArray cateArray = new JSONArray();
 		
-		JSONArray coorArray = new JSONArray();
+		
 		int cateCount = 0;
 		int nCount = 0;
 		JSONObject jobj = new JSONObject();
@@ -104,6 +104,7 @@
 					JSONObject o = cateArray.getJSONObject(i);
 					String strCate = o.getString("tag"); 
 					
+					JSONArray coorArray = new JSONArray();
 					nCount = queryCoordinates(strStartDate, strEndDate, tp.start_hour, tp.end_hour, strCate, strTableName, coorArray);
 
 					if (0 < nCount) {
