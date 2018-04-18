@@ -88,16 +88,11 @@
 		JSONArray resArray = new JSONArray();
 
 		if (strCategory.equals("all")) {
-			System.out.println("********all");
 			int cateCount = getCategoryList(strTableName, cateArray);
-			System.out.println("********cateCount: " + cateCount);
-			System.out.println("********cateArray: " + cateArray);
 
 			if (0 < cateCount) {
-				System.out.println("********");
 
 				for (int i = 0; i < cateArray.length(); i++) {
-					System.out.println("***for*****");
 					JSONObject o = cateArray.getJSONObject(i);
 					String strCate = o.getString("tag");
 
@@ -138,12 +133,11 @@
 
 		} else {
 			// select single category
-			System.out.println("********category: " + strCategory);
 			JSONArray coorArray = new JSONArray();
 
 			nCount = queryCoordinates(strStartDate, strEndDate, tp.start_hour, tp.end_hour, strCategory, strTableName,
 					coorArray);
-			System.out.println("********nCount: " + nCount);
+			
 			if (0 < nCount) {
 				JSONObject resultObj = new JSONObject();
 				resultObj.put("category", strCategory);
