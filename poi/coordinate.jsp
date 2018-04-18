@@ -110,7 +110,6 @@
 						switch (nCount) {
 						case 0:
 							jobj = ApiResponse.dataNotFound();
-							System.out.println("********dataNotFound: 1");
 							break;
 						default:
 							jobj = ApiResponse.byReturnStatus(nCount);
@@ -126,7 +125,6 @@
 				switch (cateCount) {
 				case 0:
 					jobj = ApiResponse.dataNotFound();
-					System.out.println("********dataNotFound: 2");
 					break;
 				default:
 					jobj = ApiResponse.byReturnStatus(nCount);
