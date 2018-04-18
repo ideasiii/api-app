@@ -95,7 +95,7 @@
 			cateCount = getCategoryList(strTableName, cateArray);
 			
 			if (0 > cateCount) {
-				
+				System.out.println("********cateCount: " + cateCount);
 				for (int i = 0; i < cateArray.length(); i++) {
 					JSONObject o = cateArray.getJSONObject(i);
 					String strCate = o.getString("tag"); 
@@ -110,35 +110,32 @@
 						switch (nCount) {
 						case 0:
 							jobj = ApiResponse.dataNotFound();
+							System.out.println("********dataNotFound: 1");
 							break;
 						default:
 							jobj = ApiResponse.byReturnStatus(nCount);
 						}
 					}
 					
-				}
+				} //for
 				
-				
-				
-				
+				jobj = ApiResponse.successTemplate(); 
+				jobj.put("result", resArray);
 				
 			} else {
 				switch (cateCount) {
 				case 0:
 					jobj = ApiResponse.dataNotFound();
+					System.out.println("********dataNotFound: 2");
 					break;
 				default:
 					jobj = ApiResponse.byReturnStatus(nCount);
 				}
 			}
 			
-			
-			
-			
-		
-		} else {
+		}  // else {
 
-		 nCount = queryCoordinates(strStartDate, strEndDate, tp.start_hour, tp.end_hour, strCategory, strTableName, coorArray);
+	/**	 nCount = queryCoordinates(strStartDate, strEndDate, tp.start_hour, tp.end_hour, strCategory, strTableName, coorArray);
 
 		if (0 < nCount) {
 			
@@ -163,7 +160,7 @@
 			default:
 				jobj = ApiResponse.byReturnStatus(nCount);
 			}
-		}
+		}**/
 		return jobj;
 	}
 
