@@ -13,8 +13,7 @@
 	out.print(jobj.toString());
 %>
 
-<%! 
-		private JSONObject processRequest(HttpServletRequest request) {
+<%!private JSONObject processRequest(HttpServletRequest request) {
 		if (!hasRequiredParameters(request)) {
 			return ApiResponse.error(ApiResponse.STATUS_MISSING_PARAMETER);
 		}
@@ -34,7 +33,7 @@
 		if (!isValidAppId(strAppId)) {
 			return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid app_id.");
 		}
-		
+
 		if (!isNotEmptyString(strCategory)) {
 			return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid category.");
 		}
@@ -62,10 +61,10 @@
 			}
 		}
 
-	/** final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
-		if (conn == null) {
-			return ApiResponse.error(ApiResponse.STATUS_INTERNAL_ERROR);
-		}*/
+		/** final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
+			if (conn == null) {
+				return ApiResponse.error(ApiResponse.STATUS_INTERNAL_ERROR);
+			}*/
 
 		//check table name exist in DB_Tracker
 		AppListData appListData = new AppListData();
@@ -80,32 +79,29 @@
 				return ApiResponse.byReturnStatus(nCheckTable);
 			}
 		}
-		System.out.println("********PoiTableName: " + strTableName);
-		
+
 		JSONArray cateArray = new JSONArray();
-		
-		
-		int cateCount = 0;
 		int nCount = 0;
 		JSONObject jobj = new JSONObject();
 		JSONArray resArray = new JSONArray();
-		
+
 		if (strCategory.equals("all")) {
 			System.out.println("********all");
-			cateCount = getCategoryList(strTableName, cateArray);
+			int cateCount = getCategoryList(strTableName, cateArray);
 			System.out.println("********cateCount: " + cateCount);
 			System.out.println("********cateArray: " + cateArray);
-			
+
 			if (0 < cateCount) {
 				System.out.println("********");
-				
+
 				for (int i = 0; i < cateArray.length(); i++) {
 					System.out.println("***for*****");
 					JSONObject o = cateArray.getJSONObject(i);
-					String strCate = o.getString("tag"); 
-					
+					String strCate = o.getString("tag");
+
 					JSONArray coorArray = new JSONArray();
-					nCount = queryCoordinates(strStartDate, strEndDate, tp.start_hour, tp.end_hour, strCate, strTableName, coorArray);
+					nCount = queryCoordinates(strStartDate, strEndDate, tp.start_hour, tp.end_hour, strCate,
+							strTableName, coorArray);
 
 					if (0 < nCount) {
 						JSONObject resultObj = new JSONObject();
@@ -122,12 +118,12 @@
 							jobj = ApiResponse.byReturnStatus(nCount);
 						}
 					}
-					
+
 				} //for
-				
-				jobj = ApiResponse.successTemplate(); 
+
+				jobj = ApiResponse.successTemplate();
 				jobj.put("result", resArray);
-				
+
 			} else {
 				switch (cateCount) {
 				case 0:
@@ -137,35 +133,35 @@
 					jobj = ApiResponse.byReturnStatus(nCount);
 				}
 			}
-			
-		}  // else {
-
-	/**	 nCount = queryCoordinates(strStartDate, strEndDate, tp.start_hour, tp.end_hour, strCategory, strTableName, coorArray);
-
-		if (0 < nCount) {
-			
-			resultObj.put("count", nCount);
-			resultObj.put("coordinate", coorArray);
-			resArray.put(resultObj);
-		}
-		}
-		
-	
-
-		
-		if (0 < nCount) {
-			jobj = ApiResponse.successTemplate(); 
-			jobj.put("result", resArray);
 
 		} else {
-			switch (nCount) {
-			case 0:
-				jobj = ApiResponse.dataNotFound();
-				break;
-			default:
-				jobj = ApiResponse.byReturnStatus(nCount);
+			// select single category
+			JSONArray coorArray = new JSONArray();
+
+			nCount = queryCoordinates(strStartDate, strEndDate, tp.start_hour, tp.end_hour, strCategory, strTableName,
+					coorArray);
+
+			if (0 < nCount) {
+				JSONObject resultObj = new JSONObject();
+				resultObj.put("category", strCategory);
+				resultObj.put("count", nCount);
+				resultObj.put("coordinate", coorArray);
+				resArray.put(resultObj);
+
+				jobj = ApiResponse.successTemplate();
+				jobj.put("result", resArray);
+
+			} else {
+				switch (nCount) {
+				case 0:
+					jobj = ApiResponse.dataNotFound();
+					break;
+				default:
+					jobj = ApiResponse.byReturnStatus(nCount);
+				}
 			}
-		}**/
+
+		}
 		return jobj;
 	}
 
@@ -182,7 +178,7 @@
 
 		} else {
 			tp.time_period = request.getParameter("time_period").trim();
-			
+
 			if (tp.time_period.equals("morning")) {
 				tp.start_hour = "06";
 				tp.end_hour = "11";
@@ -196,7 +192,7 @@
 				tp.start_hour = "00";
 				tp.end_hour = "05";
 			} else {
-				
+
 				return false;
 			}
 		}
@@ -206,9 +202,11 @@
 	public int queryCoordinates(final String strStartDate, final String strEndDate, final String strStartHour,
 			final String strEndHour, final String strCategory, final String strTableName, final JSONArray out) {
 		final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
-		int status = select(conn,
-				"SELECT DISTINCT ROUND(`latitude`,4) AS la, ROUND(`longitude`,4) AS lo, `tag` FROM " + strTableName + " WHERE `create_date` BETWEEN ? AND ? AND HOUR(`create_date`) BETWEEN ? AND ? AND `tag`= ? AND `poi_distance` <= 100",
-				new Object[] { strStartDate+" 00:00:00", strEndDate+" 23:59:59", strStartHour, strEndHour, strCategory },
+		int status = select(conn, "SELECT DISTINCT ROUND(`latitude`,4) AS la, ROUND(`longitude`,4) AS lo, `tag` FROM "
+				+ strTableName
+				+ " WHERE `create_date` BETWEEN ? AND ? AND HOUR(`create_date`) BETWEEN ? AND ? AND `tag`= ? AND `poi_distance` <= 100",
+				new Object[] { strStartDate + " 00:00:00", strEndDate + " 23:59:59", strStartHour, strEndHour,
+						strCategory },
 				new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
@@ -218,11 +216,11 @@
 							JSONObject jobj = new JSONObject();
 							String la = rs.getString("la");
 							String lo = rs.getString("lo");
-							
-							if (isNotEmptyString(la) && isNotEmptyString(la)){
-							jobj.put("latitude", la);
-							jobj.put("longitude", lo);
-							out.put(jobj);
+
+							if (isNotEmptyString(la) && isNotEmptyString(la)) {
+								jobj.put("latitude", la);
+								jobj.put("longitude", lo);
+								out.put(jobj);
 							}
 						}
 						return itemCount;
@@ -230,25 +228,11 @@
 				});
 		return status;
 	}
-	
-	public int getAllCategories(final ArrayList<String> listCategories, final JSONArray out) {
-		int count = 0;
-		JSONObject resultObj = new JSONObject();
-		JSONArray coorArray = new JSONArray();
-		
-		
-		
-		
-		
-		return count;
-	}
-	
+
 	public int getCategoryList(final String strTableName, final JSONArray out) {
 		final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
-		int status = select(conn,
-				"SELECT DISTINCT `tag` FROM " + strTableName + " WHERE `tag` IS NOT NULL",
-				new Object[] {  },
-				new ResultSetReader() {
+		int status = select(conn, "SELECT DISTINCT `tag` FROM " + strTableName + " WHERE `tag` IS NOT NULL",
+				new Object[] {}, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
 
@@ -256,10 +240,10 @@
 							++itemCount;
 							JSONObject jobj = new JSONObject();
 							String strCategory = rs.getString("tag");
-							
-							if (isNotEmptyString(strCategory)){
+
+							if (isNotEmptyString(strCategory)) {
 								jobj.put("tag", strCategory);
-							out.put(jobj);
+								out.put(jobj);
 							}
 						}
 						return itemCount;
@@ -268,14 +252,8 @@
 		return status;
 	}
 
-
 	private static class TimeParam {
 		String time_period;
 		String start_hour;
 		String end_hour;
-	}
-	
-
-	
-	
-	%>
+	}%>
