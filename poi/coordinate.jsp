@@ -3,6 +3,7 @@
 <%@ page import="org.json.JSONArray"%>
 <%@ page import="org.json.JSONObject"%>
 <%@ page import="java.util.Map"%>
+<%@page import="java.io.*"%> 
 
 <%@include file="../api_common.jsp"%>
 <%@include file="../response_utility.jsp"%>
@@ -13,7 +14,7 @@
 	out.print(jobj.toString());
 %>
 
-<%!private JSONObject processRequest(HttpServletRequest request) {
+<%!private JSONObject processRequest(HttpServletRequest request) throws ServletException, IOException {
 		if (!hasRequiredParameters(request)) {
 			return ApiResponse.error(ApiResponse.STATUS_MISSING_PARAMETER);
 		}
