@@ -86,7 +86,7 @@
 	
 	public int queryAreaPoiArray(final String strAppId,final String strCategory, final String strStartDate, final String strEndDate, final String strArea, final JSONArray out) {
 
-		int status = select(null, "SELECT `poi`, `category`, `count` FROM `app_user_pre_area_poi` WHERE `app_id`=? AND `category`=? AND `area`=? AND `start_date`=? AND `end_date`=? ORDER BY `count` DESC",
+		int status = select(null, "SELECT `poi`, `category`, `count` FROM `app_user_pre_area_poi` WHERE `app_id`=? AND `category`=? AND `area`=? AND `start_date`=? AND `end_date`=? ORDER BY `count` DESC LIMIT 10",
 				new Object[] {strAppId, strCategory, strArea, strStartDate, strEndDate}, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
