@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="application/json; charset=UTF-8"
 	pageEncoding="UTF-8" session="false"%>
 <%@page import="java.io.*"%> 	
+<%@page import="org.apache.commons.lang3.StringUtils"%>  
+ 
 	
 <%@include file="poi_common.jsp"%>
 
@@ -33,7 +35,8 @@
 	{
 		strPoi = strPoi.replaceAll(";",",");
 	}
-	System.out.println("**********POI : " + strPoi);
+	String strPoiList = StringUtils.wrap(strPoi, "\"");
+	System.out.println("**********POI List : " + strPoiList);
 	
 	if (!isValidAppId(strAppId)) {
 		return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid app_id.");
