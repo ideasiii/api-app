@@ -33,7 +33,7 @@
 	strPoi = new String(strPoi.getBytes("ISO-8859-1"),"UTF-8");
 	if (strPoi.indexOf(";") != -1)
 	{
-		strPoi = strPoi.replaceAll(";",",");
+		strPoi = strPoi.replaceAll(";","\",\"");
 	}
 	String strPoiList = StringUtils.wrap(strPoi, "\"");
 	System.out.println("**********POI List : " + strPoiList);
