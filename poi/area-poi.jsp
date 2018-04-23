@@ -27,10 +27,14 @@
 	
 	String strCategory =  request.getParameter("category");
 	strCategory = new String(strCategory.getBytes("ISO-8859-1"),"UTF-8");
-	String strPoiList =  request.getParameter("poi");
-	strPoiList = new String(strPoiList.getBytes("ISO-8859-1"),"UTF-8");
-	System.out.println("**********POI List : " + strPoiList);
-
+	String strPoi =  request.getParameter("poi");
+	strPoi = new String(strPoi.getBytes("ISO-8859-1"),"UTF-8");
+	if (strPoi.indexOf(";") != -1)
+	{
+		strPoi = strPoi.replaceAll(";",",");
+	}
+	System.out.println("**********POI : " + strPoi);
+	
 	if (!isValidAppId(strAppId)) {
 		return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid app_id.");
 	}
