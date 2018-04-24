@@ -106,7 +106,6 @@
 				System.out.println("*****************curcorCount***" + cursor.count());
 				
 				while (cursor.hasNext()) {
-					System.out.println("*****************curcor***");
 					++status;
 					JSONObject jsonobj = new JSONObject(cursor.next().toString());
 					jsonobj.remove("_id");

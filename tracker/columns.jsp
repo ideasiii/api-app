@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8" session="false"%>
 <%@ page import="org.json.JSONArray"%>
 <%@ page import="org.json.JSONObject"%>
-<%@ page import="java.util.Map"%>
+<%@ page import="java.util.*"%>
 <%@ page import="com.mongodb.MongoClient"%>
 <%@ page import="com.mongodb.DB"%>
 <%@ page import="com.mongodb.DBCollection"%>
@@ -91,7 +91,6 @@
 				System.out.println("*****************curcorCount***" + cursor.count());
 				
 				for (String key: cursor.next().keySet()) {
-					System.out.println("*****************curcor***");
 					out.put(key);
 				}
 				
