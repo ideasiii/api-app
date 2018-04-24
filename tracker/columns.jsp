@@ -87,8 +87,9 @@
 				BasicDBObject dataQuery = new BasicDBObject();
 				dataQuery.put("ID", new BasicDBObject("$regex", strID));
 				DBCursor cursor = collection.find(dataQuery);
-				System.out.println("*****************dataQ***" + dataQuery.toString());
 				System.out.println("*****************curcorCount***" + cursor.count());
+				System.out.println("*****************dataQ***" + dataQuery.toString());
+				
 				
 				for (String key: cursor.next().keySet()) {
 					out.put(key);
