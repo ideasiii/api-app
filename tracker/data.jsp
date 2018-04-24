@@ -103,7 +103,7 @@
 				dataQuery.put("create_date", new BasicDBObject("$gte", strSD + " 00:00:00").append("$lte", strED + " 23:59:59"));
 				DBCursor cursor = collection.find(dataQuery);
 				System.out.println("*****************dataQ***" + dataQuery.toString());
-				System.out.println("*****************curcorCount***" + cursor.count());
+				//System.out.println("*****************curcorCount***" + cursor.count());
 				
 				while (cursor.hasNext()) {
 					++status;
