@@ -85,7 +85,7 @@
 				closeConnOnReturn = true;
 
 				BasicDBObject dataQuery = new BasicDBObject();
-				dataQuery.put("ID", new BasicDBObject("$regex", strID).append("$options", "i"));
+				dataQuery.put("ID", new BasicDBObject("$regex", strID));
 				DBCursor cursor = collection.find(dataQuery);
 				System.out.println("*****************dataQ***" + dataQuery.toString());
 				System.out.println("*****************curcorCount***" + cursor.count());
