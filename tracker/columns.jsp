@@ -50,7 +50,6 @@
 		if (0 < nCount) {
 			jobj = ApiResponse.successTemplate();
 			jobj.put("result", resArray);
-			System.out.println("********************result: " + resArray);
 
 		} else {
 			switch (nCount) {
@@ -80,7 +79,6 @@
 			DB db = mongoClient.getDB("access");
 
 			if (null != db) {
-				System.out.println("*****************db***");
 				DBCollection collection = db.getCollection("mobile");
 				closeConnOnReturn = true;
 
@@ -88,17 +86,13 @@
 				dataQuery.put("ID", new BasicDBObject("$regex", strID));
 				DBCursor cursor = collection.find(dataQuery);
 			//	System.out.println("*****************curcorCount***" + cursor.count());
-				System.out.println("*****************dataQ***" + dataQuery.toString());
-				
+			//	System.out.println("*****************dataQ***" + dataQuery.toString());
 				
 				for (String key: cursor.next().keySet()) {
 					out.put(key);
 				}
-				
 			}
-
 			status = out.length();
-			System.out.println("*****************status***" + status);
 
 		} catch (Exception e) {
 			e.printStackTrace();
