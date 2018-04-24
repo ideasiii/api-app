@@ -74,7 +74,7 @@
 	
 	if (strCategory.equals("all")) {
 	
-	int nCount = queryAllCatePoiArray(strAppId, strStartDate, strEndDate, strArea, resArray);
+	int nCount = queryAllCatePoiArray(strAppId, strStartDate, strEndDate, strArea, strPoiList, resArray);
 
 	if (0 < nCount) {
 		jobj = ApiResponse.successTemplate();
@@ -91,7 +91,7 @@
 
 	} else { //category
 		
-		int nCount = queryAreaPoiArray(strAppId, strCategory, strStartDate, strEndDate, strArea, resArray);
+		int nCount = queryAreaPoiArray(strAppId, strCategory, strStartDate, strEndDate, strArea, strPoiList, resArray);
 
 		if (0 < nCount) {
 			jobj = ApiResponse.successTemplate();
@@ -116,10 +116,10 @@
 	return paramMap.containsKey("app_id") && paramMap.containsKey("start_date") && paramMap.containsKey("end_date") && paramMap.containsKey("area") && paramMap.containsKey("category") && paramMap.containsKey("poi");
 	}
 	
-	public int queryAreaPoiArray(final String strAppId,final String strCategory, final String strStartDate, final String strEndDate, final String strArea, final JSONArray out) {
+	public int queryAreaPoiArray(final String strAppId,final String strCategory, final String strStartDate, final String strEndDate, final String strArea, final String strPoiList, final JSONArray out) {
 
-		int status = select(null, "SELECT `poi`, `category`, `count` FROM `app_user_pre_area_poi` WHERE `app_id`=? AND `start_date`=? AND `end_date`=? AND `area`=? AND `category`=? ORDER BY `count` DESC",
-				new Object[] {strAppId, strStartDate, strEndDate, strArea, strCategory }, new ResultSetReader() {
+		int status = select(null, "SELECT `poi`, `category`, `count` FROM `app_user_pre_area_poi` WHERE `app_id`=? AND `start_date`=? AND `end_date`=? AND `area`=? AND `category`=? AND `poi` IN (?) ORDER BY `count` DESC",
+				new Object[] {strAppId, strStartDate, strEndDate, strArea, strCategory, strPoiList }, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
 
@@ -137,10 +137,10 @@
 		return status;
 	}
 	
-	public int queryAllCatePoiArray(final String strAppId, final String strStartDate, final String strEndDate, final String strArea, final JSONArray out) {
+	public int queryAllCatePoiArray(final String strAppId, final String strStartDate, final String strEndDate, final String strArea, final String strPoiList, final JSONArray out) {
 
-		int status = select(null, "SELECT `poi`, `category`, `count` FROM `app_user_pre_area_poi` WHERE `app_id`=? AND `start_date`=? AND `end_date`=? AND `area`=? ORDER BY `count` DESC",
-				new Object[] {strAppId, strStartDate, strEndDate, strArea }, new ResultSetReader() {
+		int status = select(null, "SELECT `poi`, `category`, `count` FROM `app_user_pre_area_poi` WHERE `app_id`=? AND `start_date`=? AND `end_date`=? AND `area`=? AND `poi` IN (?) ORDER BY `count` DESC",
+				new Object[] {strAppId, strStartDate, strEndDate, strArea, strPoiList }, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
 
