@@ -36,7 +36,6 @@
 		strPoi = strPoi.replaceAll(";","\",\"");
 	}
 	String strPoiList = "(" + StringUtils.wrap(strPoi, "\"") + ")";
-	System.out.println("**********POI List : " + strPoiList);
 	
 	if (!isValidAppId(strAppId)) {
 		return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid app_id.");
