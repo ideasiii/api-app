@@ -129,7 +129,7 @@
 				BasicDBObject dataQuery = new BasicDBObject();
 				dataQuery.put("ID", new BasicDBObject("$regex", strID).append("$options", "i"));
 				dataQuery.put("create_date", new BasicDBObject("$gte", strSD + " 00:00:00").append("$lte", strED + " 23:59:59"));
-				DBCursor cursor = collection.find(dataQuery).sort(new BasicDBObject("create_date","-1"));
+				DBCursor cursor = collection.find(dataQuery).sort(new BasicDBObject("create_date",-1));
 				System.out.println("*****************dataQ***" + dataQuery.toString());
 				//System.out.println("*****************curcorCount***" + cursor.count());
 				
@@ -174,7 +174,7 @@
 				BasicDBObject dataQuery = new BasicDBObject();
 				dataQuery.put("ID", new BasicDBObject("$regex", strID).append("$options", "i"));
 				dataQuery.put("create_date", new BasicDBObject("$gte", strSD + " 00:00:00").append("$lte", strED + " 23:59:59"));
-				DBCursor cursor = collection.find(dataQuery).sort(new BasicDBObject("create_date","-1")).limit(nLimit);
+				DBCursor cursor = collection.find(dataQuery).sort(new BasicDBObject("create_date",-1)).limit(nLimit);
 				System.out.println("*****************dataQ***" + dataQuery.toString());
 				//System.out.println("*****************curcorCount***" + cursor.count());
 				
