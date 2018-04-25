@@ -29,6 +29,7 @@
 		final String strAppId = request.getParameter("app_id");
 		final String strStartDate = request.getParameter("start_date");
 		final String strEndDate = request.getParameter("end_date");
+		String strLimit = request.getParameter("limit");
 
 		if (!isValidAppId(strAppId)) {
 			return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid app_id.");
@@ -57,9 +58,16 @@
 			}
 		}
 
+		
 		JSONObject jobj = new JSONObject();
 		JSONArray resArray = new JSONArray();
-		int nCount = queryTrackerData(strAppId, strStartDate, strEndDate, resArray);
+		
+		//limit query
+		if (isNotEmptyString(strLimit)) {
+		
+		final int nLimit = Integer.parseInt(strLimit);
+		
+		int nCount = queryLimitData(strAppId, nLimit, strStartDate, strEndDate, resArray);
 
 		if (0 < nCount) {
 			jobj = ApiResponse.successTemplate();
@@ -73,6 +81,26 @@
 				break;
 			default:
 				jobj = ApiResponse.byReturnStatus(nCount);
+			}
+		}
+		
+		} else {  // query all
+		
+			int nCount = queryTrackerData(strAppId, strStartDate, strEndDate, resArray);
+
+			if (0 < nCount) {
+				jobj = ApiResponse.successTemplate();
+				jobj.put("result", resArray);
+				System.out.println("********************" + resArray.length());
+
+			} else {
+				switch (nCount) {
+				case 0:
+					jobj = ApiResponse.dataNotFound();
+					break;
+				default:
+					jobj = ApiResponse.byReturnStatus(nCount);
+				}
 			}
 		}
 		return jobj;
@@ -101,7 +129,7 @@
 				BasicDBObject dataQuery = new BasicDBObject();
 				dataQuery.put("ID", new BasicDBObject("$regex", strID).append("$options", "i"));
 				dataQuery.put("create_date", new BasicDBObject("$gte", strSD + " 00:00:00").append("$lte", strED + " 23:59:59"));
-				DBCursor cursor = collection.find(dataQuery);
+				DBCursor cursor = collection.find(dataQuery).sort(new BasicDBObject("create_date","-1"));
 				System.out.println("*****************dataQ***" + dataQuery.toString());
 				//System.out.println("*****************curcorCount***" + cursor.count());
 				
@@ -126,4 +154,52 @@
 			return status;
 		}
 
-	}%>
+	}
+	
+	public int queryLimitData(final String strID, final int nLimit, final String strSD, final String strED, final JSONArray out) {
+		MongoClient mongoClient = null;
+		boolean closeConnOnReturn = false;
+		int status = 0;
+		
+		try {
+
+			mongoClient = new MongoClient(Common.DB_IP_MONGO, 27017);
+			DB db = mongoClient.getDB("access");
+
+			if (null != db) {
+				System.out.println("*****************db***");
+				DBCollection collection = db.getCollection("mobile");
+				closeConnOnReturn = true;
+
+				BasicDBObject dataQuery = new BasicDBObject();
+				dataQuery.put("ID", new BasicDBObject("$regex", strID).append("$options", "i"));
+				dataQuery.put("create_date", new BasicDBObject("$gte", strSD + " 00:00:00").append("$lte", strED + " 23:59:59"));
+				DBCursor cursor = collection.find(dataQuery).sort(new BasicDBObject("create_date","-1")).limit(nLimit);
+				System.out.println("*****************dataQ***" + dataQuery.toString());
+				//System.out.println("*****************curcorCount***" + cursor.count());
+				
+				while (cursor.hasNext()) {
+					++status;
+					JSONObject jsonobj = new JSONObject(cursor.next().toString());
+					jsonobj.remove("_id");
+					out.put(jsonobj);
+				}
+			}
+
+			status = out.length();
+			System.out.println("*****************status***" + status);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			status = ERR_EXCEPTION;
+		} finally {
+			if (closeConnOnReturn) {
+				mongoClient.close();
+			}
+			return status;
+		}
+
+	}
+	
+	
+	%>

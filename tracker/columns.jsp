@@ -72,7 +72,7 @@
 		MongoClient mongoClient = null;
 		boolean closeConnOnReturn = false;
 		int status = 0;
-		
+
 		try {
 
 			mongoClient = new MongoClient(Common.DB_IP_MONGO, 27017);
@@ -85,11 +85,15 @@
 				BasicDBObject dataQuery = new BasicDBObject();
 				dataQuery.put("ID", new BasicDBObject("$regex", strID));
 				DBCursor cursor = collection.find(dataQuery);
-			//	System.out.println("*****************curcorCount***" + cursor.count());
-			//	System.out.println("*****************dataQ***" + dataQuery.toString());
-				
-				for (String key: cursor.next().keySet()) {
-					out.put(key);
+
+				//	System.out.println("*****************curcorCount***" + cursor.count());
+				//	System.out.println("*****************dataQ***" + dataQuery.toString());
+
+				for (String key : cursor.next().keySet()) {
+
+					if (!key.equals("_id")) {
+						out.put(key);
+					}
 				}
 			}
 			status = out.length();
@@ -104,7 +108,4 @@
 			return status;
 		}
 
-	}
-	
-	
-	%>
+	}%>
