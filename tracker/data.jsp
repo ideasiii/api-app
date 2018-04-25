@@ -72,7 +72,6 @@
 		if (0 < nCount) {
 			jobj = ApiResponse.successTemplate();
 			jobj.put("result", resArray);
-			System.out.println("********************" + resArray.length());
 
 		} else {
 			switch (nCount) {
@@ -91,7 +90,6 @@
 			if (0 < nCount) {
 				jobj = ApiResponse.successTemplate();
 				jobj.put("result", resArray);
-				System.out.println("********************" + resArray.length());
 
 			} else {
 				switch (nCount) {
@@ -122,7 +120,6 @@
 			DB db = mongoClient.getDB("access");
 
 			if (null != db) {
-				System.out.println("*****************db***");
 				DBCollection collection = db.getCollection("mobile");
 				closeConnOnReturn = true;
 
@@ -130,9 +127,7 @@
 				dataQuery.put("ID", new BasicDBObject("$regex", strID).append("$options", "i"));
 				dataQuery.put("create_date", new BasicDBObject("$gte", strSD + " 00:00:00").append("$lte", strED + " 23:59:59"));
 				DBCursor cursor = collection.find(dataQuery).sort(new BasicDBObject("create_date",-1));
-				System.out.println("*****************dataQ***" + dataQuery.toString());
-				//System.out.println("*****************curcorCount***" + cursor.count());
-				
+			
 				while (cursor.hasNext()) {
 					++status;
 					JSONObject jsonobj = new JSONObject(cursor.next().toString());
@@ -142,7 +137,6 @@
 			}
 
 			status = out.length();
-			System.out.println("*****************status***" + status);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -167,7 +161,6 @@
 			DB db = mongoClient.getDB("access");
 
 			if (null != db) {
-				System.out.println("*****************db***");
 				DBCollection collection = db.getCollection("mobile");
 				closeConnOnReturn = true;
 
@@ -175,7 +168,7 @@
 				dataQuery.put("ID", new BasicDBObject("$regex", strID).append("$options", "i"));
 				dataQuery.put("create_date", new BasicDBObject("$gte", strSD + " 00:00:00").append("$lte", strED + " 23:59:59"));
 				DBCursor cursor = collection.find(dataQuery).sort(new BasicDBObject("create_date",-1)).limit(nLimit);
-				System.out.println("*****************dataQ***" + dataQuery.toString());
+				//System.out.println("*****************dataQ***" + dataQuery.toString());
 				//System.out.println("*****************curcorCount***" + cursor.count());
 				
 				while (cursor.hasNext()) {
@@ -187,7 +180,6 @@
 			}
 
 			status = out.length();
-			System.out.println("*****************status***" + status);
 
 		} catch (Exception e) {
 			e.printStackTrace();
