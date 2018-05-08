@@ -154,11 +154,9 @@
 		sdf.setLenient(false);
 
 		try {
-			if (sd == ed)
-				return true;
-			
+		
 			//check startDate before endDate 
-			boolean validStartDate = sdf.parse(sd).before(sdf.parse(ed));
+			boolean validStartDate = sdf.parse(ed).after(sdf.parse(sd));
 			
 			if (validStartDate == false)
 				return false;
