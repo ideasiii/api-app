@@ -154,18 +154,18 @@
 		sdf.setLenient(false);
 
 		try {
-			boolean validStartDate = false;
 			
-			if (sdf.parse(sd) == sdf.parse(ed))
-			{
-				validStartDate = true;
+			if (sd == ed) {
+				return true;
+				
 			} else {
-			//check startDate before endDate
-			 validStartDate = sdf.parse(sd).before(sdf.parse(ed));
-			}
+			//check startDate before endDate 
+			boolean validStartDate = sdf.parse(sd).before(sdf.parse(ed));
+			
 			if (validStartDate == false)
 				return false;
-
+			}
+			
 		} catch (ParseException e) {
 
 			e.printStackTrace();
