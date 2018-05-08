@@ -155,16 +155,11 @@
 
 		try {
 			
-			if (sdf.parse(sd) == sdf.parse(ed)) {
-				return true;
-				
-			} else {
 			//check startDate before endDate 
 			boolean validStartDate = sdf.parse(sd).before(sdf.parse(ed));
 			
 			if (validStartDate == false)
 				return false;
-			}
 			
 		} catch (ParseException e) {
 
