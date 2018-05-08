@@ -155,7 +155,7 @@
 
 		try {
 			
-			if (sd == ed) {
+			if (sdf.parse(sd) == sdf.parse(ed)) {
 				return true;
 				
 			} else {
