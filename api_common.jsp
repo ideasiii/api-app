@@ -156,7 +156,7 @@
 		try {
 		
 			//check startDate before endDate 
-			boolean validStartDate = sdf.parse(ed).after(sdf.parse(sd));
+			boolean validStartDate = !sdf.parse(sd).after(sdf.parse(ed));
 			
 			if (validStartDate == false)
 				return false;
