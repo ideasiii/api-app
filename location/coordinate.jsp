@@ -28,6 +28,7 @@
 		final String strTimePeriod = request.getParameter("time_period");
 		final String strStartDate = request.getParameter("start_date");
 		final String strEndDate = request.getParameter("end_date");
+		String strLimit = request.getParameter("limit");
 		final String strTableName;
 
 		if (!isValidAppId(strAppId)) {
@@ -78,7 +79,12 @@
 		System.out.println("********strTableName: " + strTableName);
 		JSONObject jobj = new JSONObject();
 		JSONArray resArray = new JSONArray();
-		int nCount = queryCoordinates(strStartDate, strEndDate, tp.start_hour, tp.end_hour, strTableName, resArray);
+		
+		if (isNotEmptyString(strLimit)) {
+			
+			final int nLimit = Integer.parseInt(strLimit);
+		
+		int nCount = queryCoordinates(strStartDate, strEndDate, tp.start_hour, tp.end_hour, nLimit, strTableName, resArray);
 
 		if (0 < nCount) {
 			jobj = ApiResponse.successTemplate(); 
@@ -92,6 +98,25 @@
 				break;
 			default:
 				jobj = ApiResponse.byReturnStatus(nCount);
+			}
+		}
+		} else {  // query all
+			
+			int nCount = queryAllCoordinates(strStartDate, strEndDate, tp.start_hour, tp.end_hour, strTableName, resArray);
+
+			if (0 < nCount) {
+				jobj = ApiResponse.successTemplate(); 
+				jobj.put("count", nCount);
+				jobj.put("result", resArray);
+
+			} else {
+				switch (nCount) {
+				case 0:
+					jobj = ApiResponse.dataNotFound();
+					break;
+				default:
+					jobj = ApiResponse.byReturnStatus(nCount);
+				}
 			}
 		}
 		return jobj;
@@ -132,10 +157,38 @@
 	}
 
 	public int queryCoordinates(final String strStartDate, final String strEndDate, final String strStartHour,
+			final String strEndHour, final int nLimit, final String strTableName, final JSONArray out) {
+		final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
+		int status = select(conn,
+				"SELECT DISTINCT ROUND(`latitude`,4) AS la, ROUND(`longitude`,4) AS lo FROM " + strTableName + " WHERE `create_date` BETWEEN ? AND ? AND HOUR(`create_date`) BETWEEN ? AND ? ORDER BY RAND() LIMIT ?",
+				new Object[] { strStartDate+" 00:00:00", strEndDate+" 23:59:59", strStartHour, strEndHour, nLimit },
+				new ResultSetReader() {
+					public int read(ResultSet rs) throws Exception {
+						int itemCount = 0;
+
+						while (rs.next()) {
+							++itemCount;
+							JSONObject jobj = new JSONObject();
+							String la = rs.getString("la");
+							String lo = rs.getString("lo");
+							
+							if (isNotEmptyString(la) && isNotEmptyString(la)){
+							jobj.put("latitude", la);
+							jobj.put("longitude", lo);
+							out.put(jobj);
+							}
+						}
+						return itemCount;
+					}
+				});
+		return status;
+	}
+
+	public int queryAllCoordinates(final String strStartDate, final String strEndDate, final String strStartHour,
 			final String strEndHour, final String strTableName, final JSONArray out) {
 		final Connection conn = connect(Common.DB_URL_TRACKER, Common.DB_USER_TRACKER, Common.DB_PASS_TRACKER);
 		int status = select(conn,
-				"SELECT DISTINCT ROUND(`latitude`,4) AS la, ROUND(`longitude`,4) AS lo FROM " + strTableName + " WHERE `create_date` BETWEEN ? AND ? AND HOUR(`create_date`) BETWEEN ? AND ? ORDER BY RAND() LIMIT 5000",
+				"SELECT DISTINCT ROUND(`latitude`,4) AS la, ROUND(`longitude`,4) AS lo FROM " + strTableName + " WHERE `create_date` BETWEEN ? AND ? AND HOUR(`create_date`) BETWEEN ? AND ?",
 				new Object[] { strStartDate+" 00:00:00", strEndDate+" 23:59:59", strStartHour, strEndHour },
 				new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
