@@ -26,7 +26,7 @@
 	//final String strCategory = request.getParameter("category");
 	
 	String strCategory =  request.getParameter("category");
-	strCategory = new String(strCategory.getBytes("ISO-8859-1"),"UTF-8");
+	//strCategory = new String(strCategory.getBytes("ISO-8859-1"),"UTF-8");
 
 	if (!isValidAppId(strAppId)) {
 		return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid app_id.");

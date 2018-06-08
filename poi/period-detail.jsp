@@ -27,7 +27,6 @@
 	
 	String strCategory =  request.getParameter("category");
 	//strCategory = new String(strCategory.getBytes("ISO-8859-1"),"UTF-8"); 
-	System.out.println("********************Category: " + strCategory);
 	
 
 	if (!isValidAppId(strAppId)) {
@@ -102,13 +101,9 @@
 							out.put(jobj);
 						}
 
-						System.out.println("********************item: " + itemCount);
 						return itemCount;
 					}
 				});
-		String strSQL = "SELECT `poi`, `category`, `count` FROM `app_user_pre_period_poi` WHERE `app_id`="+ strAppId +" AND `category`="+ strCategory +" AND `time_interval`="+ strTimeInterval +" AND `start_date`="+ strStartDate +" AND `end_date`="+ strEndDate +" ORDER BY `count` DESC";
-		System.out.println("********************SQL: " + strSQL);
-		System.out.println("********************status: " + status);
 		return status;
 	}
 	
