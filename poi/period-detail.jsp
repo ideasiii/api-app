@@ -27,6 +27,8 @@
 	
 	String strCategory =  request.getParameter("category");
 	strCategory = new String(strCategory.getBytes("ISO-8859-1"),"UTF-8"); 
+	System.out.println("********************Category: " + strCategory);
+	
 
 	if (!isValidAppId(strAppId)) {
 		return ApiResponse.error(ApiResponse.STATUS_INVALID_PARAMETER, "Invalid app_id.");
@@ -86,7 +88,8 @@
 	
 	public int queryPeriodPoiArray(final String strAppId,final String strCategory, final String strStartDate, final String strEndDate, final String strTimeInterval, final JSONArray out) {
 
-		int status = select(null, "SELECT `poi`, `category`, `count` FROM `app_user_pre_period_poi` WHERE `app_id`=? AND `category`=? AND `time_interval`=? AND `start_date`=? AND `end_date`=? ORDER BY `count` DESC",
+		String strSQL = "SELECT `poi`, `category`, `count` FROM `app_user_pre_period_poi` WHERE `app_id`=? AND `category`=? AND `time_interval`=? AND `start_date`=? AND `end_date`=? ORDER BY `count` DESC";
+		int status = select(null, strSQL,
 				new Object[] {strAppId, strCategory, strTimeInterval, strStartDate, strEndDate}, new ResultSetReader() {
 					public int read(ResultSet rs) throws Exception {
 						int itemCount = 0;
@@ -102,6 +105,7 @@
 						return itemCount;
 					}
 				});
+		System.out.println("********************SQL: " + strSQL);
 		return status;
 	}
 	
