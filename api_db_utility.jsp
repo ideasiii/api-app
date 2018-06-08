@@ -60,6 +60,7 @@ public int select(Connection conn, final String template,
 		
         System.out.println("********************pst: " + pst.toString());
         
+        
         rs.close();
         pst.close();
     } catch (Exception e) {
