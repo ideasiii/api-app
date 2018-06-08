@@ -58,6 +58,8 @@ public int select(Connection conn, final String template,
         ResultSet rs = pst.executeQuery();
         status = reader.read(rs);
 		
+        System.out.println("********************pst: " + pst.toString());
+        
         rs.close();
         pst.close();
     } catch (Exception e) {
