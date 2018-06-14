@@ -28,9 +28,9 @@
 	//final String strCategory = request.getParameter("category");
 	
 	String strCategory =  request.getParameter("category");
-	strCategory = new String(strCategory.getBytes("ISO-8859-1"),"UTF-8");
+	//strCategory = new String(strCategory.getBytes("ISO-8859-1"),"UTF-8");
 	String strPoi =  request.getParameter("poi");
-	strPoi = new String(strPoi.getBytes("ISO-8859-1"),"UTF-8");
+	//strPoi = new String(strPoi.getBytes("ISO-8859-1"),"UTF-8");
 	if (strPoi.indexOf(";") != -1)
 	{
 		strPoi = strPoi.replaceAll(";","\",\"");
